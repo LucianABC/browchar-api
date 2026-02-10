@@ -7,7 +7,7 @@ model Game {
 
   system    System    @relation(fields: [systemId], references: [id])
   templates Template[]
-  tables    Table[]
+  campaigns    Campaign[]
 
   @@index([systemId])
 }

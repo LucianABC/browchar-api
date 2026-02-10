@@ -5,13 +5,15 @@ model Character {
   templateId      String
   templateVersion Int
   values          Json
-  tableId         String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   deletedAt       DateTime?
 
+  players Player[]   // “Pertenencia” indirecta: en qué campañas se usa este personaje
   owner    User     @relation(fields: [ownerId], references: [id])
   template Template @relation(fields: [templateId], references: [id])
+  campaigns CampaignCharacter[]
 
   @@index([ownerId])
+  @@index([templateId])
 }
