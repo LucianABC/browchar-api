@@ -1,0 +1,13 @@
+model Template {
+  id        String   @id @default(cuid())
+  gameId    String
+  name      String
+  version   Int
+  schema    Json
+  createdAt DateTime @default(now())
+
+  game       Game       @relation(fields: [gameId], references: [id])
+  characters Character[]
+
+  @@unique([gameId, name, version])
+}

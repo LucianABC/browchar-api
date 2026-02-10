@@ -1,0 +1,18 @@
+model Table {
+  id          String   @id @default(cuid())
+  gameId      String // es necesario?
+  name        String
+  description String?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  archivedAt  DateTime?
+
+  game       Game        @relation(fields: [gameId], references: [id])
+  owner      User        @relation(fields: [ownerId], references: [id])
+  characters Character[]
+  members Player[]
+
+  @@index([gameId])
+  @@index([ownerId])
+}
