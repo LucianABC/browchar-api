@@ -19,8 +19,6 @@ Backend para gestionar hojas de personaje multi-sistema (PBTA, D&D, Vampiro, etc
 - **Prisma ORM**
 
 ---
-
-
 ### PRISMA
 Formatear schema:
 ```npx prisma format```
@@ -38,10 +36,13 @@ Abrir Prisma Studio:
 ```npx prisma studio```
 
 ### DB
-```docker compose ps```
-
+Levantar la DB:
 ```docker compose up -d```
 
+```docker compose ps```
+
+Detén y borra los volúmenes:
+```docker compose down -v```
 ---
 
 ## Modelo de datos (resumen)
