@@ -8,12 +8,12 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Campaign.js'
-export type * from './models/CampaignCharacter.js'
-export type * from './models/Character.js'
-export type * from './models/Game.js'
-export type * from './models/Player.js'
-export type * from './models/System.js'
-export type * from './models/Template.js'
-export type * from './models/User.js'
-export type * from './commonInputTypes.js'
+export type * from './models/Campaign'
+export type * from './models/CampaignCharacter'
+export type * from './models/Character'
+export type * from './models/Game'
+export type * from './models/Player'
+export type * from './models/System'
+export type * from './models/Template'
+export type * from './models/User'
+export type * from './commonInputTypes'

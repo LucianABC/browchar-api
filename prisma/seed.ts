@@ -12,7 +12,7 @@ async function main() {
       name: 'Powered by the Apocalypse',
     },
   });
-
+/* 
   // 2. Definimos los Juegos y sus Templates
   const gamesData = [
     {
@@ -84,7 +84,7 @@ async function main() {
       console.log(`   📄 Template listo: ${temp.name} (v${temp.version})`);
     }
   }
-
+ */
   console.log('--- Seeding Finalizado ---');
 }
 
