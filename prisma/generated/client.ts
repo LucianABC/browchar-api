@@ -60,6 +60,11 @@ export type Character = Prisma.CharacterModel
  */
 export type Game = Prisma.GameModel
 /**
+ * Model Playbook
+ * 
+ */
+export type Playbook = Prisma.PlaybookModel
+/**
  * Model Player
  * 
  */
@@ -69,11 +74,6 @@ export type Player = Prisma.PlayerModel
  * 
  */
 export type System = Prisma.SystemModel
-/**
- * Model Template
- * 
- */
-export type Template = Prisma.TemplateModel
 /**
  * Model User
  * 

@@ -55,9 +55,9 @@ export const ModelName = {
   CampaignCharacter: 'CampaignCharacter',
   Character: 'Character',
   Game: 'Game',
+  Playbook: 'Playbook',
   Player: 'Player',
   System: 'System',
-  Template: 'Template',
   User: 'User'
 } as const
 
@@ -108,8 +108,8 @@ export const CharacterScalarFieldEnum = {
   id: 'id',
   name: 'name',
   ownerId: 'ownerId',
-  templateId: 'templateId',
-  templateVersion: 'templateVersion',
+  playbookId: 'playbookId',
+  playbookVersion: 'playbookVersion',
   values: 'values',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -128,6 +128,19 @@ export const GameScalarFieldEnum = {
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
+
+
+export const PlaybookScalarFieldEnum = {
+  id: 'id',
+  gameId: 'gameId',
+  name: 'name',
+  version: 'version',
+  schema: 'schema',
+  createdAt: 'createdAt',
+  description: 'description'
+} as const
+
+export type PlaybookScalarFieldEnum = (typeof PlaybookScalarFieldEnum)[keyof typeof PlaybookScalarFieldEnum]
 
 
 export const PlayerScalarFieldEnum = {
@@ -149,18 +162,6 @@ export const SystemScalarFieldEnum = {
 } as const
 
 export type SystemScalarFieldEnum = (typeof SystemScalarFieldEnum)[keyof typeof SystemScalarFieldEnum]
-
-
-export const TemplateScalarFieldEnum = {
-  id: 'id',
-  gameId: 'gameId',
-  name: 'name',
-  version: 'version',
-  schema: 'schema',
-  createdAt: 'createdAt'
-} as const
-
-export type TemplateScalarFieldEnum = (typeof TemplateScalarFieldEnum)[keyof typeof TemplateScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

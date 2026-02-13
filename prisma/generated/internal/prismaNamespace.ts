@@ -388,9 +388,9 @@ export const ModelName = {
   CampaignCharacter: 'CampaignCharacter',
   Character: 'Character',
   Game: 'Game',
+  Playbook: 'Playbook',
   Player: 'Player',
   System: 'System',
-  Template: 'Template',
   User: 'User'
 } as const
 
@@ -407,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "campaign" | "campaignCharacter" | "character" | "game" | "player" | "system" | "template" | "user"
+    modelProps: "campaign" | "campaignCharacter" | "character" | "game" | "playbook" | "player" | "system" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -707,6 +707,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Playbook: {
+      payload: Prisma.$PlaybookPayload<ExtArgs>
+      fields: Prisma.PlaybookFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlaybookFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlaybookFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        findFirst: {
+          args: Prisma.PlaybookFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlaybookFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        findMany: {
+          args: Prisma.PlaybookFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>[]
+        }
+        create: {
+          args: Prisma.PlaybookCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        createMany: {
+          args: Prisma.PlaybookCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlaybookCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>[]
+        }
+        delete: {
+          args: Prisma.PlaybookDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        update: {
+          args: Prisma.PlaybookUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlaybookDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlaybookUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlaybookUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlaybookUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlaybookPayload>
+        }
+        aggregate: {
+          args: Prisma.PlaybookAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlaybook>
+        }
+        groupBy: {
+          args: Prisma.PlaybookGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlaybookGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlaybookCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlaybookCountAggregateOutputType> | number
+        }
+      }
+    }
     Player: {
       payload: Prisma.$PlayerPayload<ExtArgs>
       fields: Prisma.PlayerFieldRefs
@@ -855,80 +929,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Template: {
-      payload: Prisma.$TemplatePayload<ExtArgs>
-      fields: Prisma.TemplateFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.TemplateFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.TemplateFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        findFirst: {
-          args: Prisma.TemplateFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.TemplateFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        findMany: {
-          args: Prisma.TemplateFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>[]
-        }
-        create: {
-          args: Prisma.TemplateCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        createMany: {
-          args: Prisma.TemplateCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.TemplateCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>[]
-        }
-        delete: {
-          args: Prisma.TemplateDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        update: {
-          args: Prisma.TemplateUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        deleteMany: {
-          args: Prisma.TemplateDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.TemplateUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.TemplateUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>[]
-        }
-        upsert: {
-          args: Prisma.TemplateUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$TemplatePayload>
-        }
-        aggregate: {
-          args: Prisma.TemplateAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateTemplate>
-        }
-        groupBy: {
-          args: Prisma.TemplateGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TemplateGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.TemplateCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.TemplateCountAggregateOutputType> | number
-        }
-      }
-    }
     User: {
       payload: Prisma.$UserPayload<ExtArgs>
       fields: Prisma.UserFieldRefs
@@ -1073,8 +1073,8 @@ export const CharacterScalarFieldEnum = {
   id: 'id',
   name: 'name',
   ownerId: 'ownerId',
-  templateId: 'templateId',
-  templateVersion: 'templateVersion',
+  playbookId: 'playbookId',
+  playbookVersion: 'playbookVersion',
   values: 'values',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -1093,6 +1093,19 @@ export const GameScalarFieldEnum = {
 } as const
 
 export type GameScalarFieldEnum = (typeof GameScalarFieldEnum)[keyof typeof GameScalarFieldEnum]
+
+
+export const PlaybookScalarFieldEnum = {
+  id: 'id',
+  gameId: 'gameId',
+  name: 'name',
+  version: 'version',
+  schema: 'schema',
+  createdAt: 'createdAt',
+  description: 'description'
+} as const
+
+export type PlaybookScalarFieldEnum = (typeof PlaybookScalarFieldEnum)[keyof typeof PlaybookScalarFieldEnum]
 
 
 export const PlayerScalarFieldEnum = {
@@ -1114,18 +1127,6 @@ export const SystemScalarFieldEnum = {
 } as const
 
 export type SystemScalarFieldEnum = (typeof SystemScalarFieldEnum)[keyof typeof SystemScalarFieldEnum]
-
-
-export const TemplateScalarFieldEnum = {
-  id: 'id',
-  gameId: 'gameId',
-  name: 'name',
-  version: 'version',
-  schema: 'schema',
-  createdAt: 'createdAt'
-} as const
-
-export type TemplateScalarFieldEnum = (typeof TemplateScalarFieldEnum)[keyof typeof TemplateScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -1373,9 +1374,9 @@ export type GlobalOmitConfig = {
   campaignCharacter?: Prisma.CampaignCharacterOmit
   character?: Prisma.CharacterOmit
   game?: Prisma.GameOmit
+  playbook?: Prisma.PlaybookOmit
   player?: Prisma.PlayerOmit
   system?: Prisma.SystemOmit
-  template?: Prisma.TemplateOmit
   user?: Prisma.UserOmit
 }
 

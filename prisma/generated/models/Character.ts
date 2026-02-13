@@ -27,19 +27,19 @@ export type AggregateCharacter = {
 }
 
 export type CharacterAvgAggregateOutputType = {
-  templateVersion: number | null
+  playbookVersion: number | null
 }
 
 export type CharacterSumAggregateOutputType = {
-  templateVersion: number | null
+  playbookVersion: number | null
 }
 
 export type CharacterMinAggregateOutputType = {
   id: string | null
   name: string | null
   ownerId: string | null
-  templateId: string | null
-  templateVersion: number | null
+  playbookId: string | null
+  playbookVersion: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -49,8 +49,8 @@ export type CharacterMaxAggregateOutputType = {
   id: string | null
   name: string | null
   ownerId: string | null
-  templateId: string | null
-  templateVersion: number | null
+  playbookId: string | null
+  playbookVersion: number | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -60,8 +60,8 @@ export type CharacterCountAggregateOutputType = {
   id: number
   name: number
   ownerId: number
-  templateId: number
-  templateVersion: number
+  playbookId: number
+  playbookVersion: number
   values: number
   createdAt: number
   updatedAt: number
@@ -71,19 +71,19 @@ export type CharacterCountAggregateOutputType = {
 
 
 export type CharacterAvgAggregateInputType = {
-  templateVersion?: true
+  playbookVersion?: true
 }
 
 export type CharacterSumAggregateInputType = {
-  templateVersion?: true
+  playbookVersion?: true
 }
 
 export type CharacterMinAggregateInputType = {
   id?: true
   name?: true
   ownerId?: true
-  templateId?: true
-  templateVersion?: true
+  playbookId?: true
+  playbookVersion?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -93,8 +93,8 @@ export type CharacterMaxAggregateInputType = {
   id?: true
   name?: true
   ownerId?: true
-  templateId?: true
-  templateVersion?: true
+  playbookId?: true
+  playbookVersion?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -104,8 +104,8 @@ export type CharacterCountAggregateInputType = {
   id?: true
   name?: true
   ownerId?: true
-  templateId?: true
-  templateVersion?: true
+  playbookId?: true
+  playbookVersion?: true
   values?: true
   createdAt?: true
   updatedAt?: true
@@ -203,8 +203,8 @@ export type CharacterGroupByOutputType = {
   id: string
   name: string
   ownerId: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: runtime.JsonValue
   createdAt: Date
   updatedAt: Date
@@ -238,15 +238,15 @@ export type CharacterWhereInput = {
   id?: Prisma.StringFilter<"Character"> | string
   name?: Prisma.StringFilter<"Character"> | string
   ownerId?: Prisma.StringFilter<"Character"> | string
-  templateId?: Prisma.StringFilter<"Character"> | string
-  templateVersion?: Prisma.IntFilter<"Character"> | number
+  playbookId?: Prisma.StringFilter<"Character"> | string
+  playbookVersion?: Prisma.IntFilter<"Character"> | number
   values?: Prisma.JsonFilter<"Character">
   createdAt?: Prisma.DateTimeFilter<"Character"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Character"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Character"> | Date | string | null
   players?: Prisma.PlayerListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  template?: Prisma.XOR<Prisma.TemplateScalarRelationFilter, Prisma.TemplateWhereInput>
+  playbook?: Prisma.XOR<Prisma.PlaybookScalarRelationFilter, Prisma.PlaybookWhereInput>
   campaigns?: Prisma.CampaignCharacterListRelationFilter
 }
 
@@ -254,15 +254,15 @@ export type CharacterOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  templateId?: Prisma.SortOrder
-  templateVersion?: Prisma.SortOrder
+  playbookId?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
   values?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   players?: Prisma.PlayerOrderByRelationAggregateInput
   owner?: Prisma.UserOrderByWithRelationInput
-  template?: Prisma.TemplateOrderByWithRelationInput
+  playbook?: Prisma.PlaybookOrderByWithRelationInput
   campaigns?: Prisma.CampaignCharacterOrderByRelationAggregateInput
 }
 
@@ -273,15 +273,15 @@ export type CharacterWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CharacterWhereInput | Prisma.CharacterWhereInput[]
   name?: Prisma.StringFilter<"Character"> | string
   ownerId?: Prisma.StringFilter<"Character"> | string
-  templateId?: Prisma.StringFilter<"Character"> | string
-  templateVersion?: Prisma.IntFilter<"Character"> | number
+  playbookId?: Prisma.StringFilter<"Character"> | string
+  playbookVersion?: Prisma.IntFilter<"Character"> | number
   values?: Prisma.JsonFilter<"Character">
   createdAt?: Prisma.DateTimeFilter<"Character"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Character"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Character"> | Date | string | null
   players?: Prisma.PlayerListRelationFilter
   owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  template?: Prisma.XOR<Prisma.TemplateScalarRelationFilter, Prisma.TemplateWhereInput>
+  playbook?: Prisma.XOR<Prisma.PlaybookScalarRelationFilter, Prisma.PlaybookWhereInput>
   campaigns?: Prisma.CampaignCharacterListRelationFilter
 }, "id">
 
@@ -289,8 +289,8 @@ export type CharacterOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  templateId?: Prisma.SortOrder
-  templateVersion?: Prisma.SortOrder
+  playbookId?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
   values?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -309,8 +309,8 @@ export type CharacterScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Character"> | string
   name?: Prisma.StringWithAggregatesFilter<"Character"> | string
   ownerId?: Prisma.StringWithAggregatesFilter<"Character"> | string
-  templateId?: Prisma.StringWithAggregatesFilter<"Character"> | string
-  templateVersion?: Prisma.IntWithAggregatesFilter<"Character"> | number
+  playbookId?: Prisma.StringWithAggregatesFilter<"Character"> | string
+  playbookVersion?: Prisma.IntWithAggregatesFilter<"Character"> | number
   values?: Prisma.JsonWithAggregatesFilter<"Character">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Character"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Character"> | Date | string
@@ -320,14 +320,14 @@ export type CharacterScalarWhereWithAggregatesInput = {
 export type CharacterCreateInput = {
   id?: string
   name: string
-  templateVersion: number
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   players?: Prisma.PlayerCreateNestedManyWithoutCharacterInput
   owner: Prisma.UserCreateNestedOneWithoutCharactersInput
-  template: Prisma.TemplateCreateNestedOneWithoutCharactersInput
+  playbook: Prisma.PlaybookCreateNestedOneWithoutCharactersInput
   campaigns?: Prisma.CampaignCharacterCreateNestedManyWithoutCharacterInput
 }
 
@@ -335,8 +335,8 @@ export type CharacterUncheckedCreateInput = {
   id?: string
   name: string
   ownerId: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -348,14 +348,14 @@ export type CharacterUncheckedCreateInput = {
 export type CharacterUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   players?: Prisma.PlayerUpdateManyWithoutCharacterNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutCharactersNestedInput
-  template?: Prisma.TemplateUpdateOneRequiredWithoutCharactersNestedInput
+  playbook?: Prisma.PlaybookUpdateOneRequiredWithoutCharactersNestedInput
   campaigns?: Prisma.CampaignCharacterUpdateManyWithoutCharacterNestedInput
 }
 
@@ -363,8 +363,8 @@ export type CharacterUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -377,8 +377,8 @@ export type CharacterCreateManyInput = {
   id?: string
   name: string
   ownerId: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -388,7 +388,7 @@ export type CharacterCreateManyInput = {
 export type CharacterUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -399,8 +399,8 @@ export type CharacterUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -416,8 +416,8 @@ export type CharacterCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  templateId?: Prisma.SortOrder
-  templateVersion?: Prisma.SortOrder
+  playbookId?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
   values?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -425,15 +425,15 @@ export type CharacterCountOrderByAggregateInput = {
 }
 
 export type CharacterAvgOrderByAggregateInput = {
-  templateVersion?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
 }
 
 export type CharacterMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  templateId?: Prisma.SortOrder
-  templateVersion?: Prisma.SortOrder
+  playbookId?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -443,20 +443,15 @@ export type CharacterMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  templateId?: Prisma.SortOrder
-  templateVersion?: Prisma.SortOrder
+  playbookId?: Prisma.SortOrder
+  playbookVersion?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
 }
 
 export type CharacterSumOrderByAggregateInput = {
-  templateVersion?: Prisma.SortOrder
-}
-
-export type CharacterNullableScalarRelationFilter = {
-  is?: Prisma.CharacterWhereInput | null
-  isNot?: Prisma.CharacterWhereInput | null
+  playbookVersion?: Prisma.SortOrder
 }
 
 export type CharacterListRelationFilter = {
@@ -467,6 +462,11 @@ export type CharacterListRelationFilter = {
 
 export type CharacterOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type CharacterNullableScalarRelationFilter = {
+  is?: Prisma.CharacterWhereInput | null
+  isNot?: Prisma.CharacterWhereInput | null
 }
 
 export type CharacterCreateNestedOneWithoutCampaignsInput = {
@@ -491,6 +491,48 @@ export type IntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type CharacterCreateNestedManyWithoutPlaybookInput = {
+  create?: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput> | Prisma.CharacterCreateWithoutPlaybookInput[] | Prisma.CharacterUncheckedCreateWithoutPlaybookInput[]
+  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutPlaybookInput | Prisma.CharacterCreateOrConnectWithoutPlaybookInput[]
+  createMany?: Prisma.CharacterCreateManyPlaybookInputEnvelope
+  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+}
+
+export type CharacterUncheckedCreateNestedManyWithoutPlaybookInput = {
+  create?: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput> | Prisma.CharacterCreateWithoutPlaybookInput[] | Prisma.CharacterUncheckedCreateWithoutPlaybookInput[]
+  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutPlaybookInput | Prisma.CharacterCreateOrConnectWithoutPlaybookInput[]
+  createMany?: Prisma.CharacterCreateManyPlaybookInputEnvelope
+  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+}
+
+export type CharacterUpdateManyWithoutPlaybookNestedInput = {
+  create?: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput> | Prisma.CharacterCreateWithoutPlaybookInput[] | Prisma.CharacterUncheckedCreateWithoutPlaybookInput[]
+  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutPlaybookInput | Prisma.CharacterCreateOrConnectWithoutPlaybookInput[]
+  upsert?: Prisma.CharacterUpsertWithWhereUniqueWithoutPlaybookInput | Prisma.CharacterUpsertWithWhereUniqueWithoutPlaybookInput[]
+  createMany?: Prisma.CharacterCreateManyPlaybookInputEnvelope
+  set?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  disconnect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  delete?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  update?: Prisma.CharacterUpdateWithWhereUniqueWithoutPlaybookInput | Prisma.CharacterUpdateWithWhereUniqueWithoutPlaybookInput[]
+  updateMany?: Prisma.CharacterUpdateManyWithWhereWithoutPlaybookInput | Prisma.CharacterUpdateManyWithWhereWithoutPlaybookInput[]
+  deleteMany?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
+}
+
+export type CharacterUncheckedUpdateManyWithoutPlaybookNestedInput = {
+  create?: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput> | Prisma.CharacterCreateWithoutPlaybookInput[] | Prisma.CharacterUncheckedCreateWithoutPlaybookInput[]
+  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutPlaybookInput | Prisma.CharacterCreateOrConnectWithoutPlaybookInput[]
+  upsert?: Prisma.CharacterUpsertWithWhereUniqueWithoutPlaybookInput | Prisma.CharacterUpsertWithWhereUniqueWithoutPlaybookInput[]
+  createMany?: Prisma.CharacterCreateManyPlaybookInputEnvelope
+  set?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  disconnect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  delete?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
+  update?: Prisma.CharacterUpdateWithWhereUniqueWithoutPlaybookInput | Prisma.CharacterUpdateWithWhereUniqueWithoutPlaybookInput[]
+  updateMany?: Prisma.CharacterUpdateManyWithWhereWithoutPlaybookInput | Prisma.CharacterUpdateManyWithWhereWithoutPlaybookInput[]
+  deleteMany?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
+}
+
 export type CharacterCreateNestedOneWithoutPlayersInput = {
   create?: Prisma.XOR<Prisma.CharacterCreateWithoutPlayersInput, Prisma.CharacterUncheckedCreateWithoutPlayersInput>
   connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutPlayersInput
@@ -505,48 +547,6 @@ export type CharacterUpdateOneWithoutPlayersNestedInput = {
   delete?: Prisma.CharacterWhereInput | boolean
   connect?: Prisma.CharacterWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CharacterUpdateToOneWithWhereWithoutPlayersInput, Prisma.CharacterUpdateWithoutPlayersInput>, Prisma.CharacterUncheckedUpdateWithoutPlayersInput>
-}
-
-export type CharacterCreateNestedManyWithoutTemplateInput = {
-  create?: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput> | Prisma.CharacterCreateWithoutTemplateInput[] | Prisma.CharacterUncheckedCreateWithoutTemplateInput[]
-  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutTemplateInput | Prisma.CharacterCreateOrConnectWithoutTemplateInput[]
-  createMany?: Prisma.CharacterCreateManyTemplateInputEnvelope
-  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-}
-
-export type CharacterUncheckedCreateNestedManyWithoutTemplateInput = {
-  create?: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput> | Prisma.CharacterCreateWithoutTemplateInput[] | Prisma.CharacterUncheckedCreateWithoutTemplateInput[]
-  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutTemplateInput | Prisma.CharacterCreateOrConnectWithoutTemplateInput[]
-  createMany?: Prisma.CharacterCreateManyTemplateInputEnvelope
-  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-}
-
-export type CharacterUpdateManyWithoutTemplateNestedInput = {
-  create?: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput> | Prisma.CharacterCreateWithoutTemplateInput[] | Prisma.CharacterUncheckedCreateWithoutTemplateInput[]
-  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutTemplateInput | Prisma.CharacterCreateOrConnectWithoutTemplateInput[]
-  upsert?: Prisma.CharacterUpsertWithWhereUniqueWithoutTemplateInput | Prisma.CharacterUpsertWithWhereUniqueWithoutTemplateInput[]
-  createMany?: Prisma.CharacterCreateManyTemplateInputEnvelope
-  set?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  disconnect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  delete?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  update?: Prisma.CharacterUpdateWithWhereUniqueWithoutTemplateInput | Prisma.CharacterUpdateWithWhereUniqueWithoutTemplateInput[]
-  updateMany?: Prisma.CharacterUpdateManyWithWhereWithoutTemplateInput | Prisma.CharacterUpdateManyWithWhereWithoutTemplateInput[]
-  deleteMany?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
-}
-
-export type CharacterUncheckedUpdateManyWithoutTemplateNestedInput = {
-  create?: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput> | Prisma.CharacterCreateWithoutTemplateInput[] | Prisma.CharacterUncheckedCreateWithoutTemplateInput[]
-  connectOrCreate?: Prisma.CharacterCreateOrConnectWithoutTemplateInput | Prisma.CharacterCreateOrConnectWithoutTemplateInput[]
-  upsert?: Prisma.CharacterUpsertWithWhereUniqueWithoutTemplateInput | Prisma.CharacterUpsertWithWhereUniqueWithoutTemplateInput[]
-  createMany?: Prisma.CharacterCreateManyTemplateInputEnvelope
-  set?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  disconnect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  delete?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  connect?: Prisma.CharacterWhereUniqueInput | Prisma.CharacterWhereUniqueInput[]
-  update?: Prisma.CharacterUpdateWithWhereUniqueWithoutTemplateInput | Prisma.CharacterUpdateWithWhereUniqueWithoutTemplateInput[]
-  updateMany?: Prisma.CharacterUpdateManyWithWhereWithoutTemplateInput | Prisma.CharacterUpdateManyWithWhereWithoutTemplateInput[]
-  deleteMany?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
 }
 
 export type CharacterCreateNestedManyWithoutOwnerInput = {
@@ -594,22 +594,22 @@ export type CharacterUncheckedUpdateManyWithoutOwnerNestedInput = {
 export type CharacterCreateWithoutCampaignsInput = {
   id?: string
   name: string
-  templateVersion: number
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   players?: Prisma.PlayerCreateNestedManyWithoutCharacterInput
   owner: Prisma.UserCreateNestedOneWithoutCharactersInput
-  template: Prisma.TemplateCreateNestedOneWithoutCharactersInput
+  playbook: Prisma.PlaybookCreateNestedOneWithoutCharactersInput
 }
 
 export type CharacterUncheckedCreateWithoutCampaignsInput = {
   id?: string
   name: string
   ownerId: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -636,22 +636,22 @@ export type CharacterUpdateToOneWithWhereWithoutCampaignsInput = {
 export type CharacterUpdateWithoutCampaignsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   players?: Prisma.PlayerUpdateManyWithoutCharacterNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutCharactersNestedInput
-  template?: Prisma.TemplateUpdateOneRequiredWithoutCharactersNestedInput
+  playbook?: Prisma.PlaybookUpdateOneRequiredWithoutCharactersNestedInput
 }
 
 export type CharacterUncheckedUpdateWithoutCampaignsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -659,16 +659,83 @@ export type CharacterUncheckedUpdateWithoutCampaignsInput = {
   players?: Prisma.PlayerUncheckedUpdateManyWithoutCharacterNestedInput
 }
 
+export type CharacterCreateWithoutPlaybookInput = {
+  id?: string
+  name: string
+  playbookVersion: number
+  values: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  players?: Prisma.PlayerCreateNestedManyWithoutCharacterInput
+  owner: Prisma.UserCreateNestedOneWithoutCharactersInput
+  campaigns?: Prisma.CampaignCharacterCreateNestedManyWithoutCharacterInput
+}
+
+export type CharacterUncheckedCreateWithoutPlaybookInput = {
+  id?: string
+  name: string
+  ownerId: string
+  playbookVersion: number
+  values: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  players?: Prisma.PlayerUncheckedCreateNestedManyWithoutCharacterInput
+  campaigns?: Prisma.CampaignCharacterUncheckedCreateNestedManyWithoutCharacterInput
+}
+
+export type CharacterCreateOrConnectWithoutPlaybookInput = {
+  where: Prisma.CharacterWhereUniqueInput
+  create: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput>
+}
+
+export type CharacterCreateManyPlaybookInputEnvelope = {
+  data: Prisma.CharacterCreateManyPlaybookInput | Prisma.CharacterCreateManyPlaybookInput[]
+  skipDuplicates?: boolean
+}
+
+export type CharacterUpsertWithWhereUniqueWithoutPlaybookInput = {
+  where: Prisma.CharacterWhereUniqueInput
+  update: Prisma.XOR<Prisma.CharacterUpdateWithoutPlaybookInput, Prisma.CharacterUncheckedUpdateWithoutPlaybookInput>
+  create: Prisma.XOR<Prisma.CharacterCreateWithoutPlaybookInput, Prisma.CharacterUncheckedCreateWithoutPlaybookInput>
+}
+
+export type CharacterUpdateWithWhereUniqueWithoutPlaybookInput = {
+  where: Prisma.CharacterWhereUniqueInput
+  data: Prisma.XOR<Prisma.CharacterUpdateWithoutPlaybookInput, Prisma.CharacterUncheckedUpdateWithoutPlaybookInput>
+}
+
+export type CharacterUpdateManyWithWhereWithoutPlaybookInput = {
+  where: Prisma.CharacterScalarWhereInput
+  data: Prisma.XOR<Prisma.CharacterUpdateManyMutationInput, Prisma.CharacterUncheckedUpdateManyWithoutPlaybookInput>
+}
+
+export type CharacterScalarWhereInput = {
+  AND?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
+  OR?: Prisma.CharacterScalarWhereInput[]
+  NOT?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
+  id?: Prisma.StringFilter<"Character"> | string
+  name?: Prisma.StringFilter<"Character"> | string
+  ownerId?: Prisma.StringFilter<"Character"> | string
+  playbookId?: Prisma.StringFilter<"Character"> | string
+  playbookVersion?: Prisma.IntFilter<"Character"> | number
+  values?: Prisma.JsonFilter<"Character">
+  createdAt?: Prisma.DateTimeFilter<"Character"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Character"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"Character"> | Date | string | null
+}
+
 export type CharacterCreateWithoutPlayersInput = {
   id?: string
   name: string
-  templateVersion: number
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   owner: Prisma.UserCreateNestedOneWithoutCharactersInput
-  template: Prisma.TemplateCreateNestedOneWithoutCharactersInput
+  playbook: Prisma.PlaybookCreateNestedOneWithoutCharactersInput
   campaigns?: Prisma.CampaignCharacterCreateNestedManyWithoutCharacterInput
 }
 
@@ -676,8 +743,8 @@ export type CharacterUncheckedCreateWithoutPlayersInput = {
   id?: string
   name: string
   ownerId: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -704,13 +771,13 @@ export type CharacterUpdateToOneWithWhereWithoutPlayersInput = {
 export type CharacterUpdateWithoutPlayersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   owner?: Prisma.UserUpdateOneRequiredWithoutCharactersNestedInput
-  template?: Prisma.TemplateUpdateOneRequiredWithoutCharactersNestedInput
+  playbook?: Prisma.PlaybookUpdateOneRequiredWithoutCharactersNestedInput
   campaigns?: Prisma.CampaignCharacterUpdateManyWithoutCharacterNestedInput
 }
 
@@ -718,8 +785,8 @@ export type CharacterUncheckedUpdateWithoutPlayersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -727,91 +794,24 @@ export type CharacterUncheckedUpdateWithoutPlayersInput = {
   campaigns?: Prisma.CampaignCharacterUncheckedUpdateManyWithoutCharacterNestedInput
 }
 
-export type CharacterCreateWithoutTemplateInput = {
-  id?: string
-  name: string
-  templateVersion: number
-  values: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  players?: Prisma.PlayerCreateNestedManyWithoutCharacterInput
-  owner: Prisma.UserCreateNestedOneWithoutCharactersInput
-  campaigns?: Prisma.CampaignCharacterCreateNestedManyWithoutCharacterInput
-}
-
-export type CharacterUncheckedCreateWithoutTemplateInput = {
-  id?: string
-  name: string
-  ownerId: string
-  templateVersion: number
-  values: Prisma.JsonNullValueInput | runtime.InputJsonValue
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  deletedAt?: Date | string | null
-  players?: Prisma.PlayerUncheckedCreateNestedManyWithoutCharacterInput
-  campaigns?: Prisma.CampaignCharacterUncheckedCreateNestedManyWithoutCharacterInput
-}
-
-export type CharacterCreateOrConnectWithoutTemplateInput = {
-  where: Prisma.CharacterWhereUniqueInput
-  create: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput>
-}
-
-export type CharacterCreateManyTemplateInputEnvelope = {
-  data: Prisma.CharacterCreateManyTemplateInput | Prisma.CharacterCreateManyTemplateInput[]
-  skipDuplicates?: boolean
-}
-
-export type CharacterUpsertWithWhereUniqueWithoutTemplateInput = {
-  where: Prisma.CharacterWhereUniqueInput
-  update: Prisma.XOR<Prisma.CharacterUpdateWithoutTemplateInput, Prisma.CharacterUncheckedUpdateWithoutTemplateInput>
-  create: Prisma.XOR<Prisma.CharacterCreateWithoutTemplateInput, Prisma.CharacterUncheckedCreateWithoutTemplateInput>
-}
-
-export type CharacterUpdateWithWhereUniqueWithoutTemplateInput = {
-  where: Prisma.CharacterWhereUniqueInput
-  data: Prisma.XOR<Prisma.CharacterUpdateWithoutTemplateInput, Prisma.CharacterUncheckedUpdateWithoutTemplateInput>
-}
-
-export type CharacterUpdateManyWithWhereWithoutTemplateInput = {
-  where: Prisma.CharacterScalarWhereInput
-  data: Prisma.XOR<Prisma.CharacterUpdateManyMutationInput, Prisma.CharacterUncheckedUpdateManyWithoutTemplateInput>
-}
-
-export type CharacterScalarWhereInput = {
-  AND?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
-  OR?: Prisma.CharacterScalarWhereInput[]
-  NOT?: Prisma.CharacterScalarWhereInput | Prisma.CharacterScalarWhereInput[]
-  id?: Prisma.StringFilter<"Character"> | string
-  name?: Prisma.StringFilter<"Character"> | string
-  ownerId?: Prisma.StringFilter<"Character"> | string
-  templateId?: Prisma.StringFilter<"Character"> | string
-  templateVersion?: Prisma.IntFilter<"Character"> | number
-  values?: Prisma.JsonFilter<"Character">
-  createdAt?: Prisma.DateTimeFilter<"Character"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Character"> | Date | string
-  deletedAt?: Prisma.DateTimeNullableFilter<"Character"> | Date | string | null
-}
-
 export type CharacterCreateWithoutOwnerInput = {
   id?: string
   name: string
-  templateVersion: number
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
   players?: Prisma.PlayerCreateNestedManyWithoutCharacterInput
-  template: Prisma.TemplateCreateNestedOneWithoutCharactersInput
+  playbook: Prisma.PlaybookCreateNestedOneWithoutCharactersInput
   campaigns?: Prisma.CampaignCharacterCreateNestedManyWithoutCharacterInput
 }
 
 export type CharacterUncheckedCreateWithoutOwnerInput = {
   id?: string
   name: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -846,21 +846,21 @@ export type CharacterUpdateManyWithWhereWithoutOwnerInput = {
   data: Prisma.XOR<Prisma.CharacterUpdateManyMutationInput, Prisma.CharacterUncheckedUpdateManyWithoutOwnerInput>
 }
 
-export type CharacterCreateManyTemplateInput = {
+export type CharacterCreateManyPlaybookInput = {
   id?: string
   name: string
   ownerId: string
-  templateVersion: number
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
 }
 
-export type CharacterUpdateWithoutTemplateInput = {
+export type CharacterUpdateWithoutPlaybookInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -870,11 +870,11 @@ export type CharacterUpdateWithoutTemplateInput = {
   campaigns?: Prisma.CampaignCharacterUpdateManyWithoutCharacterNestedInput
 }
 
-export type CharacterUncheckedUpdateWithoutTemplateInput = {
+export type CharacterUncheckedUpdateWithoutPlaybookInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -883,11 +883,11 @@ export type CharacterUncheckedUpdateWithoutTemplateInput = {
   campaigns?: Prisma.CampaignCharacterUncheckedUpdateManyWithoutCharacterNestedInput
 }
 
-export type CharacterUncheckedUpdateManyWithoutTemplateInput = {
+export type CharacterUncheckedUpdateManyWithoutPlaybookInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -897,8 +897,8 @@ export type CharacterUncheckedUpdateManyWithoutTemplateInput = {
 export type CharacterCreateManyOwnerInput = {
   id?: string
   name: string
-  templateId: string
-  templateVersion: number
+  playbookId: string
+  playbookVersion: number
   values: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -908,21 +908,21 @@ export type CharacterCreateManyOwnerInput = {
 export type CharacterUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   players?: Prisma.PlayerUpdateManyWithoutCharacterNestedInput
-  template?: Prisma.TemplateUpdateOneRequiredWithoutCharactersNestedInput
+  playbook?: Prisma.PlaybookUpdateOneRequiredWithoutCharactersNestedInput
   campaigns?: Prisma.CampaignCharacterUpdateManyWithoutCharacterNestedInput
 }
 
 export type CharacterUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -934,8 +934,8 @@ export type CharacterUncheckedUpdateWithoutOwnerInput = {
 export type CharacterUncheckedUpdateManyWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  templateId?: Prisma.StringFieldUpdateOperationsInput | string
-  templateVersion?: Prisma.IntFieldUpdateOperationsInput | number
+  playbookId?: Prisma.StringFieldUpdateOperationsInput | string
+  playbookVersion?: Prisma.IntFieldUpdateOperationsInput | number
   values?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -986,15 +986,15 @@ export type CharacterSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
   id?: boolean
   name?: boolean
   ownerId?: boolean
-  templateId?: boolean
-  templateVersion?: boolean
+  playbookId?: boolean
+  playbookVersion?: boolean
   values?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   players?: boolean | Prisma.Character$playersArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
   campaigns?: boolean | Prisma.Character$campaignsArgs<ExtArgs>
   _count?: boolean | Prisma.CharacterCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["character"]>
@@ -1003,57 +1003,57 @@ export type CharacterSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ext
   id?: boolean
   name?: boolean
   ownerId?: boolean
-  templateId?: boolean
-  templateVersion?: boolean
+  playbookId?: boolean
+  playbookVersion?: boolean
   values?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["character"]>
 
 export type CharacterSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   ownerId?: boolean
-  templateId?: boolean
-  templateVersion?: boolean
+  playbookId?: boolean
+  playbookVersion?: boolean
   values?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["character"]>
 
 export type CharacterSelectScalar = {
   id?: boolean
   name?: boolean
   ownerId?: boolean
-  templateId?: boolean
-  templateVersion?: boolean
+  playbookId?: boolean
+  playbookVersion?: boolean
   values?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type CharacterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "templateId" | "templateVersion" | "values" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["character"]>
+export type CharacterOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "ownerId" | "playbookId" | "playbookVersion" | "values" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["character"]>
 export type CharacterInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   players?: boolean | Prisma.Character$playersArgs<ExtArgs>
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
   campaigns?: boolean | Prisma.Character$campaignsArgs<ExtArgs>
   _count?: boolean | Prisma.CharacterCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CharacterIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
 }
 export type CharacterIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  template?: boolean | Prisma.TemplateDefaultArgs<ExtArgs>
+  playbook?: boolean | Prisma.PlaybookDefaultArgs<ExtArgs>
 }
 
 export type $CharacterPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1061,15 +1061,15 @@ export type $CharacterPayload<ExtArgs extends runtime.Types.Extensions.InternalA
   objects: {
     players: Prisma.$PlayerPayload<ExtArgs>[]
     owner: Prisma.$UserPayload<ExtArgs>
-    template: Prisma.$TemplatePayload<ExtArgs>
+    playbook: Prisma.$PlaybookPayload<ExtArgs>
     campaigns: Prisma.$CampaignCharacterPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     ownerId: string
-    templateId: string
-    templateVersion: number
+    playbookId: string
+    playbookVersion: number
     values: runtime.JsonValue
     createdAt: Date
     updatedAt: Date
@@ -1470,7 +1470,7 @@ export interface Prisma__CharacterClient<T, Null = never, ExtArgs extends runtim
   readonly [Symbol.toStringTag]: "PrismaPromise"
   players<T extends Prisma.Character$playersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Character$playersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  template<T extends Prisma.TemplateDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TemplateDefaultArgs<ExtArgs>>): Prisma.Prisma__TemplateClient<runtime.Types.Result.GetResult<Prisma.$TemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  playbook<T extends Prisma.PlaybookDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PlaybookDefaultArgs<ExtArgs>>): Prisma.Prisma__PlaybookClient<runtime.Types.Result.GetResult<Prisma.$PlaybookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   campaigns<T extends Prisma.Character$campaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Character$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignCharacterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1504,8 +1504,8 @@ export interface CharacterFieldRefs {
   readonly id: Prisma.FieldRef<"Character", 'String'>
   readonly name: Prisma.FieldRef<"Character", 'String'>
   readonly ownerId: Prisma.FieldRef<"Character", 'String'>
-  readonly templateId: Prisma.FieldRef<"Character", 'String'>
-  readonly templateVersion: Prisma.FieldRef<"Character", 'Int'>
+  readonly playbookId: Prisma.FieldRef<"Character", 'String'>
+  readonly playbookVersion: Prisma.FieldRef<"Character", 'Int'>
   readonly values: Prisma.FieldRef<"Character", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Character", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Character", 'DateTime'>

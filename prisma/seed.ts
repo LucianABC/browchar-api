@@ -21,9 +21,9 @@ async function main() {
         create: { key: g.key, name: g.name, systemId: system.id },
       });
 
-      for (const t of g.templates) {
-        // Upsert Template usando el ID del juego
-        await prisma.template.upsert({
+      for (const t of g.playbooks) {
+        // Upsert Playbook usando el ID del juego
+        await prisma.playbook.upsert({
           where: {
             gameId_name_version: { gameId: game.id, name: t.name, version: t.version }
           },

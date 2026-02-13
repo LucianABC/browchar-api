@@ -66,7 +66,7 @@ Ejemplos: PBTA, DND5E, VTM5
 - Juego concreto dentro de un System.
 Ejemplos: Masks, Apocalypse World, D&D 5e, Vampiro 5e
 
-#### Template
+#### Playbook
 - Definición de hoja / playbook.
 - Contiene el schema JSON que define campos y validaciones
 - Versionado para evitar romper personajes existentes
@@ -76,7 +76,7 @@ Ejemplos: Masks, Apocalypse World, D&D 5e, Vampiro 5e
 - Define el rol (GM / Player)
 
 #### Character
-- Instancia de personaje basado en un Template.
+- Instancia de personaje basado en un Playbook.
 - Pertenece a un User
 - Puede reutilizarse en múltiples Campaigns
 
@@ -98,7 +98,7 @@ Ejemplos: Masks, Apocalypse World, D&D 5e, Vampiro 5e
 
 - Crear Campaign: el owner se convierte automáticamente en GM
 
-- Crear Character: se crea desde un Template y se valida contra su schema
+- Crear Character: se crea desde un Playbook y se valida contra su schema
 
 - Agregar NPC: se asocia un Character a una Campaign como NPC
 

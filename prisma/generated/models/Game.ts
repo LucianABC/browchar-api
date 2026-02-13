@@ -183,7 +183,7 @@ export type GameWhereInput = {
   name?: Prisma.StringFilter<"Game"> | string
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   system?: Prisma.XOR<Prisma.SystemScalarRelationFilter, Prisma.SystemWhereInput>
-  templates?: Prisma.TemplateListRelationFilter
+  playbooks?: Prisma.PlaybookListRelationFilter
   campaigns?: Prisma.CampaignListRelationFilter
 }
 
@@ -194,7 +194,7 @@ export type GameOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   system?: Prisma.SystemOrderByWithRelationInput
-  templates?: Prisma.TemplateOrderByRelationAggregateInput
+  playbooks?: Prisma.PlaybookOrderByRelationAggregateInput
   campaigns?: Prisma.CampaignOrderByRelationAggregateInput
 }
 
@@ -208,7 +208,7 @@ export type GameWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Game"> | string
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
   system?: Prisma.XOR<Prisma.SystemScalarRelationFilter, Prisma.SystemWhereInput>
-  templates?: Prisma.TemplateListRelationFilter
+  playbooks?: Prisma.PlaybookListRelationFilter
   campaigns?: Prisma.CampaignListRelationFilter
 }, "id" | "key">
 
@@ -240,7 +240,7 @@ export type GameCreateInput = {
   name: string
   createdAt?: Date | string
   system: Prisma.SystemCreateNestedOneWithoutGamesInput
-  templates?: Prisma.TemplateCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookCreateNestedManyWithoutGameInput
   campaigns?: Prisma.CampaignCreateNestedManyWithoutGameInput
 }
 
@@ -250,7 +250,7 @@ export type GameUncheckedCreateInput = {
   key: string
   name: string
   createdAt?: Date | string
-  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookUncheckedCreateNestedManyWithoutGameInput
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutGameInput
 }
 
@@ -260,7 +260,7 @@ export type GameUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   system?: Prisma.SystemUpdateOneRequiredWithoutGamesNestedInput
-  templates?: Prisma.TemplateUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUpdateManyWithoutGameNestedInput
   campaigns?: Prisma.CampaignUpdateManyWithoutGameNestedInput
 }
 
@@ -270,7 +270,7 @@ export type GameUncheckedUpdateInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  templates?: Prisma.TemplateUncheckedUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUncheckedUpdateManyWithoutGameNestedInput
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutGameNestedInput
 }
 
@@ -350,6 +350,20 @@ export type GameUpdateOneRequiredWithoutCampaignsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.GameUpdateToOneWithWhereWithoutCampaignsInput, Prisma.GameUpdateWithoutCampaignsInput>, Prisma.GameUncheckedUpdateWithoutCampaignsInput>
 }
 
+export type GameCreateNestedOneWithoutPlaybooksInput = {
+  create?: Prisma.XOR<Prisma.GameCreateWithoutPlaybooksInput, Prisma.GameUncheckedCreateWithoutPlaybooksInput>
+  connectOrCreate?: Prisma.GameCreateOrConnectWithoutPlaybooksInput
+  connect?: Prisma.GameWhereUniqueInput
+}
+
+export type GameUpdateOneRequiredWithoutPlaybooksNestedInput = {
+  create?: Prisma.XOR<Prisma.GameCreateWithoutPlaybooksInput, Prisma.GameUncheckedCreateWithoutPlaybooksInput>
+  connectOrCreate?: Prisma.GameCreateOrConnectWithoutPlaybooksInput
+  upsert?: Prisma.GameUpsertWithoutPlaybooksInput
+  connect?: Prisma.GameWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.GameUpdateToOneWithWhereWithoutPlaybooksInput, Prisma.GameUpdateWithoutPlaybooksInput>, Prisma.GameUncheckedUpdateWithoutPlaybooksInput>
+}
+
 export type GameCreateNestedManyWithoutSystemInput = {
   create?: Prisma.XOR<Prisma.GameCreateWithoutSystemInput, Prisma.GameUncheckedCreateWithoutSystemInput> | Prisma.GameCreateWithoutSystemInput[] | Prisma.GameUncheckedCreateWithoutSystemInput[]
   connectOrCreate?: Prisma.GameCreateOrConnectWithoutSystemInput | Prisma.GameCreateOrConnectWithoutSystemInput[]
@@ -392,27 +406,13 @@ export type GameUncheckedUpdateManyWithoutSystemNestedInput = {
   deleteMany?: Prisma.GameScalarWhereInput | Prisma.GameScalarWhereInput[]
 }
 
-export type GameCreateNestedOneWithoutTemplatesInput = {
-  create?: Prisma.XOR<Prisma.GameCreateWithoutTemplatesInput, Prisma.GameUncheckedCreateWithoutTemplatesInput>
-  connectOrCreate?: Prisma.GameCreateOrConnectWithoutTemplatesInput
-  connect?: Prisma.GameWhereUniqueInput
-}
-
-export type GameUpdateOneRequiredWithoutTemplatesNestedInput = {
-  create?: Prisma.XOR<Prisma.GameCreateWithoutTemplatesInput, Prisma.GameUncheckedCreateWithoutTemplatesInput>
-  connectOrCreate?: Prisma.GameCreateOrConnectWithoutTemplatesInput
-  upsert?: Prisma.GameUpsertWithoutTemplatesInput
-  connect?: Prisma.GameWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GameUpdateToOneWithWhereWithoutTemplatesInput, Prisma.GameUpdateWithoutTemplatesInput>, Prisma.GameUncheckedUpdateWithoutTemplatesInput>
-}
-
 export type GameCreateWithoutCampaignsInput = {
   id?: string
   key: string
   name: string
   createdAt?: Date | string
   system: Prisma.SystemCreateNestedOneWithoutGamesInput
-  templates?: Prisma.TemplateCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookCreateNestedManyWithoutGameInput
 }
 
 export type GameUncheckedCreateWithoutCampaignsInput = {
@@ -421,7 +421,7 @@ export type GameUncheckedCreateWithoutCampaignsInput = {
   key: string
   name: string
   createdAt?: Date | string
-  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookUncheckedCreateNestedManyWithoutGameInput
 }
 
 export type GameCreateOrConnectWithoutCampaignsInput = {
@@ -446,7 +446,7 @@ export type GameUpdateWithoutCampaignsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   system?: Prisma.SystemUpdateOneRequiredWithoutGamesNestedInput
-  templates?: Prisma.TemplateUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUpdateManyWithoutGameNestedInput
 }
 
 export type GameUncheckedUpdateWithoutCampaignsInput = {
@@ -455,7 +455,59 @@ export type GameUncheckedUpdateWithoutCampaignsInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  templates?: Prisma.TemplateUncheckedUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUncheckedUpdateManyWithoutGameNestedInput
+}
+
+export type GameCreateWithoutPlaybooksInput = {
+  id?: string
+  key: string
+  name: string
+  createdAt?: Date | string
+  system: Prisma.SystemCreateNestedOneWithoutGamesInput
+  campaigns?: Prisma.CampaignCreateNestedManyWithoutGameInput
+}
+
+export type GameUncheckedCreateWithoutPlaybooksInput = {
+  id?: string
+  systemId: string
+  key: string
+  name: string
+  createdAt?: Date | string
+  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutGameInput
+}
+
+export type GameCreateOrConnectWithoutPlaybooksInput = {
+  where: Prisma.GameWhereUniqueInput
+  create: Prisma.XOR<Prisma.GameCreateWithoutPlaybooksInput, Prisma.GameUncheckedCreateWithoutPlaybooksInput>
+}
+
+export type GameUpsertWithoutPlaybooksInput = {
+  update: Prisma.XOR<Prisma.GameUpdateWithoutPlaybooksInput, Prisma.GameUncheckedUpdateWithoutPlaybooksInput>
+  create: Prisma.XOR<Prisma.GameCreateWithoutPlaybooksInput, Prisma.GameUncheckedCreateWithoutPlaybooksInput>
+  where?: Prisma.GameWhereInput
+}
+
+export type GameUpdateToOneWithWhereWithoutPlaybooksInput = {
+  where?: Prisma.GameWhereInput
+  data: Prisma.XOR<Prisma.GameUpdateWithoutPlaybooksInput, Prisma.GameUncheckedUpdateWithoutPlaybooksInput>
+}
+
+export type GameUpdateWithoutPlaybooksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  system?: Prisma.SystemUpdateOneRequiredWithoutGamesNestedInput
+  campaigns?: Prisma.CampaignUpdateManyWithoutGameNestedInput
+}
+
+export type GameUncheckedUpdateWithoutPlaybooksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  systemId?: Prisma.StringFieldUpdateOperationsInput | string
+  key?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutGameNestedInput
 }
 
 export type GameCreateWithoutSystemInput = {
@@ -463,7 +515,7 @@ export type GameCreateWithoutSystemInput = {
   key: string
   name: string
   createdAt?: Date | string
-  templates?: Prisma.TemplateCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookCreateNestedManyWithoutGameInput
   campaigns?: Prisma.CampaignCreateNestedManyWithoutGameInput
 }
 
@@ -472,7 +524,7 @@ export type GameUncheckedCreateWithoutSystemInput = {
   key: string
   name: string
   createdAt?: Date | string
-  templates?: Prisma.TemplateUncheckedCreateNestedManyWithoutGameInput
+  playbooks?: Prisma.PlaybookUncheckedCreateNestedManyWithoutGameInput
   campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutGameInput
 }
 
@@ -513,58 +565,6 @@ export type GameScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Game"> | Date | string
 }
 
-export type GameCreateWithoutTemplatesInput = {
-  id?: string
-  key: string
-  name: string
-  createdAt?: Date | string
-  system: Prisma.SystemCreateNestedOneWithoutGamesInput
-  campaigns?: Prisma.CampaignCreateNestedManyWithoutGameInput
-}
-
-export type GameUncheckedCreateWithoutTemplatesInput = {
-  id?: string
-  systemId: string
-  key: string
-  name: string
-  createdAt?: Date | string
-  campaigns?: Prisma.CampaignUncheckedCreateNestedManyWithoutGameInput
-}
-
-export type GameCreateOrConnectWithoutTemplatesInput = {
-  where: Prisma.GameWhereUniqueInput
-  create: Prisma.XOR<Prisma.GameCreateWithoutTemplatesInput, Prisma.GameUncheckedCreateWithoutTemplatesInput>
-}
-
-export type GameUpsertWithoutTemplatesInput = {
-  update: Prisma.XOR<Prisma.GameUpdateWithoutTemplatesInput, Prisma.GameUncheckedUpdateWithoutTemplatesInput>
-  create: Prisma.XOR<Prisma.GameCreateWithoutTemplatesInput, Prisma.GameUncheckedCreateWithoutTemplatesInput>
-  where?: Prisma.GameWhereInput
-}
-
-export type GameUpdateToOneWithWhereWithoutTemplatesInput = {
-  where?: Prisma.GameWhereInput
-  data: Prisma.XOR<Prisma.GameUpdateWithoutTemplatesInput, Prisma.GameUncheckedUpdateWithoutTemplatesInput>
-}
-
-export type GameUpdateWithoutTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  system?: Prisma.SystemUpdateOneRequiredWithoutGamesNestedInput
-  campaigns?: Prisma.CampaignUpdateManyWithoutGameNestedInput
-}
-
-export type GameUncheckedUpdateWithoutTemplatesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  systemId?: Prisma.StringFieldUpdateOperationsInput | string
-  key?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutGameNestedInput
-}
-
 export type GameCreateManySystemInput = {
   id?: string
   key: string
@@ -577,7 +577,7 @@ export type GameUpdateWithoutSystemInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  templates?: Prisma.TemplateUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUpdateManyWithoutGameNestedInput
   campaigns?: Prisma.CampaignUpdateManyWithoutGameNestedInput
 }
 
@@ -586,7 +586,7 @@ export type GameUncheckedUpdateWithoutSystemInput = {
   key?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  templates?: Prisma.TemplateUncheckedUpdateManyWithoutGameNestedInput
+  playbooks?: Prisma.PlaybookUncheckedUpdateManyWithoutGameNestedInput
   campaigns?: Prisma.CampaignUncheckedUpdateManyWithoutGameNestedInput
 }
 
@@ -603,12 +603,12 @@ export type GameUncheckedUpdateManyWithoutSystemInput = {
  */
 
 export type GameCountOutputType = {
-  templates: number
+  playbooks: number
   campaigns: number
 }
 
 export type GameCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  templates?: boolean | GameCountOutputTypeCountTemplatesArgs
+  playbooks?: boolean | GameCountOutputTypeCountPlaybooksArgs
   campaigns?: boolean | GameCountOutputTypeCountCampaignsArgs
 }
 
@@ -625,8 +625,8 @@ export type GameCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * GameCountOutputType without action
  */
-export type GameCountOutputTypeCountTemplatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TemplateWhereInput
+export type GameCountOutputTypeCountPlaybooksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlaybookWhereInput
 }
 
 /**
@@ -644,7 +644,7 @@ export type GameSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   createdAt?: boolean
   system?: boolean | Prisma.SystemDefaultArgs<ExtArgs>
-  templates?: boolean | Prisma.Game$templatesArgs<ExtArgs>
+  playbooks?: boolean | Prisma.Game$playbooksArgs<ExtArgs>
   campaigns?: boolean | Prisma.Game$campaignsArgs<ExtArgs>
   _count?: boolean | Prisma.GameCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["game"]>
@@ -678,7 +678,7 @@ export type GameSelectScalar = {
 export type GameOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "systemId" | "key" | "name" | "createdAt", ExtArgs["result"]["game"]>
 export type GameInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   system?: boolean | Prisma.SystemDefaultArgs<ExtArgs>
-  templates?: boolean | Prisma.Game$templatesArgs<ExtArgs>
+  playbooks?: boolean | Prisma.Game$playbooksArgs<ExtArgs>
   campaigns?: boolean | Prisma.Game$campaignsArgs<ExtArgs>
   _count?: boolean | Prisma.GameCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -693,7 +693,7 @@ export type $GamePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Game"
   objects: {
     system: Prisma.$SystemPayload<ExtArgs>
-    templates: Prisma.$TemplatePayload<ExtArgs>[]
+    playbooks: Prisma.$PlaybookPayload<ExtArgs>[]
     campaigns: Prisma.$CampaignPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1097,7 +1097,7 @@ readonly fields: GameFieldRefs;
 export interface Prisma__GameClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   system<T extends Prisma.SystemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SystemDefaultArgs<ExtArgs>>): Prisma.Prisma__SystemClient<runtime.Types.Result.GetResult<Prisma.$SystemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  templates<T extends Prisma.Game$templatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$templatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  playbooks<T extends Prisma.Game$playbooksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$playbooksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlaybookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   campaigns<T extends Prisma.Game$campaignsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Game$campaignsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CampaignPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1529,27 +1529,27 @@ export type GameDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Game.templates
+ * Game.playbooks
  */
-export type Game$templatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Game$playbooksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Template
+   * Select specific fields to fetch from the Playbook
    */
-  select?: Prisma.TemplateSelect<ExtArgs> | null
+  select?: Prisma.PlaybookSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Template
+   * Omit specific fields from the Playbook
    */
-  omit?: Prisma.TemplateOmit<ExtArgs> | null
+  omit?: Prisma.PlaybookOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.TemplateInclude<ExtArgs> | null
-  where?: Prisma.TemplateWhereInput
-  orderBy?: Prisma.TemplateOrderByWithRelationInput | Prisma.TemplateOrderByWithRelationInput[]
-  cursor?: Prisma.TemplateWhereUniqueInput
+  include?: Prisma.PlaybookInclude<ExtArgs> | null
+  where?: Prisma.PlaybookWhereInput
+  orderBy?: Prisma.PlaybookOrderByWithRelationInput | Prisma.PlaybookOrderByWithRelationInput[]
+  cursor?: Prisma.PlaybookWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.TemplateScalarFieldEnum | Prisma.TemplateScalarFieldEnum[]
+  distinct?: Prisma.PlaybookScalarFieldEnum | Prisma.PlaybookScalarFieldEnum[]
 }
 
 /**
