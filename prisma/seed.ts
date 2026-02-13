@@ -1,98 +1,44 @@
 import prisma from '@db';
+import { systems } from './seeds/systems.seed';
+import { gamesBySystem } from './seeds/games.seed';
 
 async function main() {
-  console.log('--- Iniciando Seeding Profesional ---');
-
-  // 1. Definimos el Sistema PBTA
-  const pbtaSystem = await prisma.system.upsert({
-    where: { key: 'PBTA' },
-    update: {},
-    create: {
-      key: 'PBTA',
-      name: 'Powered by the Apocalypse',
-    },
-  });
-/* 
-  // 2. Definimos los Juegos y sus Templates
-  const gamesData = [
-    {
-      key: 'AW',
-      name: 'Apocalypse World',
-      templates: [
-        { name: 'The Driver', version: 1, schema: { stats: ['Hard', 'Hot', 'Sharp', 'Cool', 'Weird'] } },
-        { name: 'The Angel', version: 1, schema: { stats: ['Hard', 'Hot', 'Sharp', 'Cool', 'Weird'] } },
-      ],
-    },
-    {
-      key: 'MASKS',
-      name: 'Masks: A New Generation',
-      templates: [
-        { name: 'The Beacon', version: 1, schema: { stats: ['Danger', 'Freak', 'Savior', 'Superior', 'Mundane'] } },
-        { name: 'The Nova', version: 1, schema: { stats: ['Danger', 'Freak', 'Savior', 'Superior', 'Mundane'] } },
-      ],
-    },
-    {
-      key: 'DW',
-      name: 'Dungeon World',
-      templates: [
-        { name: 'Bard', version: 1, schema: { stats: ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'] } },
-        { name: 'Fighter', version: 1, schema: { stats: ['STR', 'DEX', 'CON', 'INT', 'WIS', 'CHA'] } },
-      ],
-    },
-    {
-      key: 'TSL',
-      name: 'Thirsty Sword Lesbians',
-      templates: [
-        { name: 'The Beast', version: 1, schema: { stats: ['Daring', 'Grace', 'Heart', 'Wit', 'Spirit'] } },
-        { name: 'The Chosen', version: 1, schema: { stats: ['Daring', 'Grace', 'Heart', 'Wit', 'Spirit'] } },
-      ],
-    },
-  ];
-
-  for (const gameInfo of gamesData) {
-    // Crear o actualizar el Juego
-    const game = await prisma.game.upsert({
-      where: { key: gameInfo.key },
-      update: { name: gameInfo.name },
-      create: {
-        key: gameInfo.key,
-        name: gameInfo.name,
-        systemId: pbtaSystem.id,
-      },
+  for (const sys of systems) {
+    // Upsert Sistema
+    const system = await prisma.system.upsert({
+      where: { key: sys.key },
+      update: { name: sys.name },
+      create: { key: sys.key, name: sys.name },
     });
 
-    console.log(`🕹️ Juego configurado: ${game.name}`);
+    const games = gamesBySystem[sys.key as keyof typeof gamesBySystem] || [];
 
-    // Crear Templates para cada juego
-    for (const temp of gameInfo.templates) {
-      await prisma.template.upsert({
-        where: {
-          gameId_name_version: {
-            gameId: game.id,
-            name: temp.name,
-            version: temp.version,
-          },
-        },
-        update: { schema: temp.schema },
-        create: {
-          gameId: game.id,
-          name: temp.name,
-          version: temp.version,
-          schema: temp.schema,
-        },
+    for (const g of games) {
+      // Upsert Juego usando el ID del sistema recién creado/encontrado
+      const game = await prisma.game.upsert({
+        where: { key: g.key },
+        update: { name: g.name, systemId: system.id },
+        create: { key: g.key, name: g.name, systemId: system.id },
       });
-      console.log(`   📄 Template listo: ${temp.name} (v${temp.version})`);
+
+      for (const t of g.templates) {
+        // Upsert Template usando el ID del juego
+        await prisma.template.upsert({
+          where: {
+            gameId_name_version: { gameId: game.id, name: t.name, version: t.version }
+          },
+          update: { schema: t.schema },
+          create: {
+            gameId: game.id,
+            name: t.name,
+            version: t.version,
+            schema: t.schema
+          },
+        });
+      }
     }
   }
- */
-  console.log('--- Seeding Finalizado ---');
+  console.log('✅ Seeding modular completado con éxito.');
 }
 
-main()
-  .catch((e) => {
-    console.error(e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().catch((e) => { console.error(e); process.exit(1); }).finally(async () => { await prisma.$disconnect(); });

@@ -1,0 +1,106 @@
+{
+  "name": "Chopper",
+  "version": 1,
+  "description": "Apocalypse World is all scarcity, of course it is. There's not enough wholesome food, not enough untainted water, not enough security, not enough light, not enough electricity, not enough children, not enough hope. However, the Golden Age Past did leave us two things: enough gasoline, enough bullets. Come the end, I guess the fuckers didn't need them like they thought they would. So chopper, there you are. Enough for you.",
+  "schema": {
+    "stats": {
+      "cool": 0,
+      "hard": 0,
+      "hot": 0,
+      "sharp": 0,
+      "weird": 0
+    },
+    "hx": {
+      "description": "History with other characters",
+      "value": 0
+    },
+    "look": {
+      "gender": [
+        "Man",
+        "Woman",
+        "Ambiguous",
+        "Transgressing"
+      ],
+      "clothes": [
+        "Scrounged armor",
+        "Leather & denim",
+        "High-tech luxury",
+        "Biker leathers"
+      ],
+      "face": [
+        "Scared face",
+        "Pretty face",
+        "Hard face",
+        "Hidden face"
+      ],
+      "eyes": [
+        "Cold eyes",
+        "Laughing eyes",
+        "Mad eyes",
+        "Calculating eyes"
+      ],
+      "body": [
+        "Huge body",
+        "Whip-thin body",
+        "Muscular body",
+        "Scarred body"
+      ]
+    },
+    "moves": {
+      "starting": [
+        {
+          "name": "Pack Alpha",
+          "description": "When you try to impose your will on your gang, roll+hard. On a 10+, all 3. On a 7–9, choose 1: They do what you want; They don't fight back; You don't have to make an example of one of them."
+        }
+      ],
+      "optional": [
+        {
+          "name": "Fucking Thief",
+          "description": "When you have your gang search an area, roll+hard."
+        },
+        {
+          "name": "Combat Driver",
+          "description": "When you use a vehicle as a weapon, roll+cool."
+        }
+      ]
+    },
+    "gang": {
+      "size": "Small (15-30)",
+      "harm": "2-harm",
+      "armor": "1-armor",
+      "tags": [
+        "Vulnerable",
+        "Unruly"
+      ],
+      "strengths": [
+        "Well-armed",
+        "Well-armored",
+        "Mobile",
+        "Aggressive"
+      ],
+      "weaknesses": [
+        "Vulnerable",
+        "Unruly",
+        "Self-destructive"
+      ]
+    },
+    "gear": {
+      "weapons": [
+        "Signature weapon (pick 1)",
+        "9mm (2-harm close loud)",
+        "Big knife (2-harm hand messy)"
+      ],
+      "barter": 1
+    },
+    "improvement": {
+      "experience": 0,
+      "options": [
+        "+1 Hard (max +3)",
+        "+1 Cool (max +2)",
+        "+1 Sharp (max +2)",
+        "+1 Weird (max +2)",
+        "Add a new gang strength"
+      ]
+    }
+  }
+}

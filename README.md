@@ -43,6 +43,11 @@ Levantar la DB:
 
 Detén y borra los volúmenes:
 ```docker compose down -v```
+
+Seedear la base de datos:
+``` npx prisma db seed ```
+(esto sólo la va a popular con lo que está declarado en el archivo prisma\seed.ts)
+
 ---
 
 ## Modelo de datos (resumen)

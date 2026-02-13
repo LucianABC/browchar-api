@@ -5,6 +5,7 @@ model Template {
   version   Int
   schema    Json
   createdAt DateTime @default(now())
+  description String?
 
   game       Game       @relation(fields: [gameId], references: [id])
   characters Character[]
