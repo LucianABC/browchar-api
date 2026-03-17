@@ -3,7 +3,7 @@ model Playbook {
   gameId      String
   name        String
   version     Int
-  schema      Json
+  template      Json
   createdAt   DateTime @default(now())
   description String?
 

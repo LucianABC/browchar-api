@@ -16,9 +16,7 @@ export interface FieldDefinition {
   required?: boolean;
   type: FieldType;
   defaultValue?: any;
+  disabled?: boolean;
+  isReadOnly?: boolean; // Campos de texto plano, como las Additional Rules
   options?: any[]; // Solo para SELECT, CHECKBOX, RADIO
-}
-
-export interface GameSystemSchema {
-  fields: FieldDefinition[];
 }
