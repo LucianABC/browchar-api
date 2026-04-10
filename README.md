@@ -1,3 +1,5 @@
+- This project is a WIP -
+
 # Browchar — Backend
 
 Backend para gestionar hojas de personaje multi-sistema (PBTA, D&D, Vampiro, etc.) con **Campaigns** (mesas/campañas), **Players** (membresías por campaña) y roster de **PCs/NPCs**.
