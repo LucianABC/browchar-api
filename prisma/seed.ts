@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
-
 import prisma from '@db';
+import type { Prisma } from './generated/client';
+import type { TemplateSection } from '../src/common/types/template.types';
+
+import { apocalypseWorldPlaybookSpecificSections } from '../data/playbooks/apocalypse-world/playbookSections';
 
 type SeedSystem = {
   key: string;
@@ -14,11 +17,15 @@ type SeedGame = {
   systemKey: string;
 };
 
-type SeedPlaybook = {
+type SeedTemplateSection = TemplateSection & Prisma.JsonObject;
+
+type BasePlaybook = {
+  id: string;
+  gameId: string;
   name: string;
   version: number;
   description?: string;
-  template: unknown;
+  template: SeedTemplateSection[];
 };
 
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -33,6 +40,17 @@ async function readJsonFile<T>(filePath: string): Promise<T> {
       `[SEED] Invalid JSON file: ${filePath}\n${(error as Error).message}`,
     );
   }
+}
+
+function cloneJson<T>(value: T): T {
+  return JSON.parse(JSON.stringify(value)) as T;
+}
+
+function buildPlaybookTemplate(
+  baseTemplate: SeedTemplateSection[],
+  specificSections: SeedTemplateSection[],
+) {
+  return cloneJson([...baseTemplate, ...specificSections]);
 }
 
 async function seedSystems() {
@@ -105,37 +123,49 @@ async function seedPlaybooksForGame(gameKey: string, folderName: string) {
   }
 
   const playbooksDir = path.join(DATA_DIR, 'playbooks', folderName);
-  const files = await fs.readdir(playbooksDir);
+  const basePath = path.join(playbooksDir, 'base.json');
+  const basePlaybook = await readJsonFile<BasePlaybook>(basePath);
 
-  const jsonFiles = files.filter((file) => file.endsWith('.json'));
+  if (!basePlaybook.version) {
+    throw new Error(`[SEED] Base playbook must have a version: ${basePath}`);
+  }
 
-  for (const file of jsonFiles) {
-    const filePath = path.join(playbooksDir, file);
-    const playbook = await readJsonFile<SeedPlaybook>(filePath);
+  if (!Array.isArray(basePlaybook.template)) {
+    throw new Error(`[SEED] Base playbook template must be an array: ${basePath}`);
+  }
 
-    if (!playbook.name || !playbook.version || !playbook.template) {
-      console.warn(`[SEED] Skipping invalid playbook file: ${filePath}`);
-      continue;
-    }
+  const playbookEntries = Object.entries(apocalypseWorldPlaybookSpecificSections);
+
+  if (playbookEntries.length === 0) {
+    throw new Error(
+      `[SEED] No playbook sections found for game "${gameKey}" in ${folderName}`,
+    );
+  }
+
+  for (const [playbookName, specificSections] of playbookEntries) {
+    const template = buildPlaybookTemplate(
+      basePlaybook.template,
+      specificSections as SeedTemplateSection[],
+    );
 
     await prisma.playbook.upsert({
       where: {
         gameId_name_version: {
           gameId: game.id,
-          name: playbook.name,
-          version: playbook.version,
+          name: playbookName,
+          version: basePlaybook.version,
         },
       },
       update: {
-        description: playbook.description,
-        template: playbook.template,
+        description: `${playbookName} playbook for Apocalypse World.`,
+        template,
       },
       create: {
         gameId: game.id,
-        name: playbook.name,
-        version: playbook.version,
-        description: playbook.description,
-        template: playbook.template,
+        name: playbookName,
+        version: basePlaybook.version,
+        description: `${playbookName} playbook for Apocalypse World.`,
+        template,
       },
     });
   }
@@ -144,7 +174,6 @@ async function seedPlaybooksForGame(gameKey: string, folderName: string) {
 async function main() {
   await seedSystems();
   await seedGames();
-
   await seedPlaybooksForGame('AW', 'apocalypse-world');
 
   console.log('✅ Seeding completado con éxito.');
