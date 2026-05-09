@@ -17,8 +17,8 @@
 
 import * as runtime from "@prisma/client/runtime/index-browser"
 
-export type * from '../models'
-export type * from './prismaNamespace'
+export type * from '../models.js'
+export type * from './prismaNamespace.js'
 
 export const Decimal = runtime.Decimal
 
@@ -135,7 +135,7 @@ export const PlaybookScalarFieldEnum = {
   gameId: 'gameId',
   name: 'name',
   version: 'version',
-  schema: 'schema',
+  template: 'template',
   createdAt: 'createdAt',
   description: 'description'
 } as const

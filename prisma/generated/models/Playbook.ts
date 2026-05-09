@@ -9,8 +9,8 @@
  * 🟢 You can import this file directly.
  */
 import type * as runtime from "@prisma/client/runtime/client"
-import type * as $Enums from "../enums"
-import type * as Prisma from "../internal/prismaNamespace"
+import type * as $Enums from "../enums.js"
+import type * as Prisma from "../internal/prismaNamespace.js"
 
 /**
  * Model Playbook
@@ -57,7 +57,7 @@ export type PlaybookCountAggregateOutputType = {
   gameId: number
   name: number
   version: number
-  schema: number
+  template: number
   createdAt: number
   description: number
   _all: number
@@ -95,7 +95,7 @@ export type PlaybookCountAggregateInputType = {
   gameId?: true
   name?: true
   version?: true
-  schema?: true
+  template?: true
   createdAt?: true
   description?: true
   _all?: true
@@ -192,7 +192,7 @@ export type PlaybookGroupByOutputType = {
   gameId: string
   name: string
   version: number
-  schema: runtime.JsonValue
+  template: runtime.JsonValue
   createdAt: Date
   description: string | null
   _count: PlaybookCountAggregateOutputType | null
@@ -225,7 +225,7 @@ export type PlaybookWhereInput = {
   gameId?: Prisma.StringFilter<"Playbook"> | string
   name?: Prisma.StringFilter<"Playbook"> | string
   version?: Prisma.IntFilter<"Playbook"> | number
-  schema?: Prisma.JsonFilter<"Playbook">
+  template?: Prisma.JsonFilter<"Playbook">
   createdAt?: Prisma.DateTimeFilter<"Playbook"> | Date | string
   description?: Prisma.StringNullableFilter<"Playbook"> | string | null
   game?: Prisma.XOR<Prisma.GameScalarRelationFilter, Prisma.GameWhereInput>
@@ -237,7 +237,7 @@ export type PlaybookOrderByWithRelationInput = {
   gameId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   version?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
+  template?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   game?: Prisma.GameOrderByWithRelationInput
@@ -253,7 +253,7 @@ export type PlaybookWhereUniqueInput = Prisma.AtLeast<{
   gameId?: Prisma.StringFilter<"Playbook"> | string
   name?: Prisma.StringFilter<"Playbook"> | string
   version?: Prisma.IntFilter<"Playbook"> | number
-  schema?: Prisma.JsonFilter<"Playbook">
+  template?: Prisma.JsonFilter<"Playbook">
   createdAt?: Prisma.DateTimeFilter<"Playbook"> | Date | string
   description?: Prisma.StringNullableFilter<"Playbook"> | string | null
   game?: Prisma.XOR<Prisma.GameScalarRelationFilter, Prisma.GameWhereInput>
@@ -265,7 +265,7 @@ export type PlaybookOrderByWithAggregationInput = {
   gameId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   version?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
+  template?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlaybookCountOrderByAggregateInput
@@ -283,7 +283,7 @@ export type PlaybookScalarWhereWithAggregatesInput = {
   gameId?: Prisma.StringWithAggregatesFilter<"Playbook"> | string
   name?: Prisma.StringWithAggregatesFilter<"Playbook"> | string
   version?: Prisma.IntWithAggregatesFilter<"Playbook"> | number
-  schema?: Prisma.JsonWithAggregatesFilter<"Playbook">
+  template?: Prisma.JsonWithAggregatesFilter<"Playbook">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Playbook"> | Date | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Playbook"> | string | null
 }
@@ -292,7 +292,7 @@ export type PlaybookCreateInput = {
   id?: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
   game: Prisma.GameCreateNestedOneWithoutPlaybooksInput
@@ -304,7 +304,7 @@ export type PlaybookUncheckedCreateInput = {
   gameId: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
   characters?: Prisma.CharacterUncheckedCreateNestedManyWithoutPlaybookInput
@@ -314,7 +314,7 @@ export type PlaybookUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   game?: Prisma.GameUpdateOneRequiredWithoutPlaybooksNestedInput
@@ -326,7 +326,7 @@ export type PlaybookUncheckedUpdateInput = {
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   characters?: Prisma.CharacterUncheckedUpdateManyWithoutPlaybookNestedInput
@@ -337,7 +337,7 @@ export type PlaybookCreateManyInput = {
   gameId: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
 }
@@ -346,7 +346,7 @@ export type PlaybookUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -356,7 +356,7 @@ export type PlaybookUncheckedUpdateManyInput = {
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -387,7 +387,7 @@ export type PlaybookCountOrderByAggregateInput = {
   gameId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   version?: Prisma.SortOrder
-  schema?: Prisma.SortOrder
+  template?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   description?: Prisma.SortOrder
 }
@@ -478,7 +478,7 @@ export type PlaybookCreateWithoutCharactersInput = {
   id?: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
   game: Prisma.GameCreateNestedOneWithoutPlaybooksInput
@@ -489,7 +489,7 @@ export type PlaybookUncheckedCreateWithoutCharactersInput = {
   gameId: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
 }
@@ -514,7 +514,7 @@ export type PlaybookUpdateWithoutCharactersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   game?: Prisma.GameUpdateOneRequiredWithoutPlaybooksNestedInput
@@ -525,7 +525,7 @@ export type PlaybookUncheckedUpdateWithoutCharactersInput = {
   gameId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -534,7 +534,7 @@ export type PlaybookCreateWithoutGameInput = {
   id?: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
   characters?: Prisma.CharacterCreateNestedManyWithoutPlaybookInput
@@ -544,7 +544,7 @@ export type PlaybookUncheckedCreateWithoutGameInput = {
   id?: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
   characters?: Prisma.CharacterUncheckedCreateNestedManyWithoutPlaybookInput
@@ -584,7 +584,7 @@ export type PlaybookScalarWhereInput = {
   gameId?: Prisma.StringFilter<"Playbook"> | string
   name?: Prisma.StringFilter<"Playbook"> | string
   version?: Prisma.IntFilter<"Playbook"> | number
-  schema?: Prisma.JsonFilter<"Playbook">
+  template?: Prisma.JsonFilter<"Playbook">
   createdAt?: Prisma.DateTimeFilter<"Playbook"> | Date | string
   description?: Prisma.StringNullableFilter<"Playbook"> | string | null
 }
@@ -593,7 +593,7 @@ export type PlaybookCreateManyGameInput = {
   id?: string
   name: string
   version: number
-  schema: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   description?: string | null
 }
@@ -602,7 +602,7 @@ export type PlaybookUpdateWithoutGameInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   characters?: Prisma.CharacterUpdateManyWithoutPlaybookNestedInput
@@ -612,7 +612,7 @@ export type PlaybookUncheckedUpdateWithoutGameInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   characters?: Prisma.CharacterUncheckedUpdateManyWithoutPlaybookNestedInput
@@ -622,7 +622,7 @@ export type PlaybookUncheckedUpdateManyWithoutGameInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   version?: Prisma.IntFieldUpdateOperationsInput | number
-  schema?: Prisma.JsonNullValueInput | runtime.InputJsonValue
+  template?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -663,7 +663,7 @@ export type PlaybookSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   gameId?: boolean
   name?: boolean
   version?: boolean
-  schema?: boolean
+  template?: boolean
   createdAt?: boolean
   description?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -676,7 +676,7 @@ export type PlaybookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   gameId?: boolean
   name?: boolean
   version?: boolean
-  schema?: boolean
+  template?: boolean
   createdAt?: boolean
   description?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -687,7 +687,7 @@ export type PlaybookSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   gameId?: boolean
   name?: boolean
   version?: boolean
-  schema?: boolean
+  template?: boolean
   createdAt?: boolean
   description?: boolean
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
@@ -698,12 +698,12 @@ export type PlaybookSelectScalar = {
   gameId?: boolean
   name?: boolean
   version?: boolean
-  schema?: boolean
+  template?: boolean
   createdAt?: boolean
   description?: boolean
 }
 
-export type PlaybookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameId" | "name" | "version" | "schema" | "createdAt" | "description", ExtArgs["result"]["playbook"]>
+export type PlaybookOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gameId" | "name" | "version" | "template" | "createdAt" | "description", ExtArgs["result"]["playbook"]>
 export type PlaybookInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   game?: boolean | Prisma.GameDefaultArgs<ExtArgs>
   characters?: boolean | Prisma.Playbook$charactersArgs<ExtArgs>
@@ -727,7 +727,7 @@ export type $PlaybookPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     gameId: string
     name: string
     version: number
-    schema: runtime.JsonValue
+    template: runtime.JsonValue
     createdAt: Date
     description: string | null
   }, ExtArgs["result"]["playbook"]>
@@ -1159,7 +1159,7 @@ export interface PlaybookFieldRefs {
   readonly gameId: Prisma.FieldRef<"Playbook", 'String'>
   readonly name: Prisma.FieldRef<"Playbook", 'String'>
   readonly version: Prisma.FieldRef<"Playbook", 'Int'>
-  readonly schema: Prisma.FieldRef<"Playbook", 'Json'>
+  readonly template: Prisma.FieldRef<"Playbook", 'Json'>
   readonly createdAt: Prisma.FieldRef<"Playbook", 'DateTime'>
   readonly description: Prisma.FieldRef<"Playbook", 'String'>
 }
