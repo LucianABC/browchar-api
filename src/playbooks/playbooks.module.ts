@@ -5,5 +5,6 @@ import { PlaybooksService } from './playbooks.service';
 @Module({
   controllers: [PlaybooksController],
   providers: [PlaybooksService],
+  exports: [PlaybooksService],
 })
 export class PlaybooksModule {}
