@@ -1,6 +1,6 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import prisma from '@db';
-import { Prisma } from '../../prisma/generated/client';
+import { type Prisma } from '../../prisma/generated/client';
 import type {
   CharacterView,
   CreateCharacterInput,
