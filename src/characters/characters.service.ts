@@ -27,6 +27,12 @@ export class CharactersService {
    */
   async create(input: CreateCharacterInput): Promise<CharacterView> {
     // 1) El owner debe existir (modo dev: ownerId viene en el body).
+    //    Sin DTOs todavía (DEV-81): validamos acá que no venga vacío, porque
+    //    Prisma no resuelve un `where.id` undefined a null, sino que tira un
+    //    PrismaClientValidationError (500 en vez del 404 esperado).
+    if (!input.ownerId) {
+      throw new BadRequestException('ownerId es requerido');
+    }
     const owner = await prisma.user.findUnique({
       where: { id: input.ownerId },
       select: { id: true },

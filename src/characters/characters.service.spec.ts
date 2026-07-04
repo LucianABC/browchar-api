@@ -1,5 +1,5 @@
 import { Test } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { jest, describe, it, beforeEach, expect } from '@jest/globals';
 import { CharactersService } from './characters.service';
 import prisma from '@db';
@@ -69,6 +69,14 @@ describe('CharactersService', () => {
       ownerId: 'user-1',
       values: { moves: [] },
     };
+
+    it('throws BadRequestException when ownerId is missing', async () => {
+      await expect(service.create({ ...input, ownerId: '' })).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(prismaMock.user.findUnique).not.toHaveBeenCalled();
+      expect(prismaMock.character.create).not.toHaveBeenCalled();
+    });
 
     it('throws NotFoundException when owner does not exist', async () => {
       prismaMock.user.findUnique.mockResolvedValue(null);

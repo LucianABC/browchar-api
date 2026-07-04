@@ -32,6 +32,12 @@ const template = [
         type: FieldType.SELECT,
         options: ['man', 'woman', 'ambiguous'],
       },
+      {
+        id: 'skills',
+        label: 'Skills',
+        type: FieldType.CHECKBOX,
+        options: ['fight', 'sneak', 'charm'],
+      },
     ],
   },
 ];
@@ -89,6 +95,30 @@ describe('validateValuesAgainstTemplate', () => {
       template,
     );
     expect(errors).toEqual([]);
+  });
+
+  it('acepta un CHECKBOX con options como valor escalar', () => {
+    const errors = validateValuesAgainstTemplate(
+      { character_name: 'X', cool: 1, skills: 'fight' },
+      template,
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it('acepta un CHECKBOX con options como array', () => {
+    const errors = validateValuesAgainstTemplate(
+      { character_name: 'X', cool: 1, skills: ['fight', 'sneak'] },
+      template,
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it('marca error si el valor de CHECKBOX no está en options', () => {
+    const errors = validateValuesAgainstTemplate(
+      { character_name: 'X', cool: 1, skills: 'fly' },
+      template,
+    );
+    expect(errors).toContainEqual(expect.objectContaining({ field: 'skills' }));
   });
 
   it('no valida campos opcionales vacíos', () => {

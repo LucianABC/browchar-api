@@ -1,12 +1,7 @@
 import { FieldType } from '@/common/types/fields.types';
 import type { FieldDefinition } from '@/common/types/fields.types';
 import type { TemplateSection } from '@/common/types/template.types';
-
-/** Un error de validación de un campo de `values` contra el template. */
-export interface ValidationError {
-  field: string;
-  message: string;
-}
+import type { ValidationError } from '@/common/types/character.types';
 
 /** Aplana los fields de todas las secciones del template, keyeados por su `id`. */
 function flattenFields(template: unknown): Map<string, FieldDefinition> {
@@ -91,10 +86,10 @@ export function validateValuesAgainstTemplate(
 
       case FieldType.CHECKBOX:
         if (Array.isArray(field.options) && field.options.length > 0) {
-          if (
-            !Array.isArray(value) ||
-            !value.every((v) => field.options!.includes(v))
-          ) {
+          // Admite tanto una selección única (valor escalar) como varias
+          // (array): normalizamos antes de chequear contra `options`.
+          const selected = Array.isArray(value) ? value : [value];
+          if (!selected.every((v) => field.options!.includes(v))) {
             errors.push({
               field: id,
               message: `"${field.label}" debe ser una o más de las opciones permitidas`,
