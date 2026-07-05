@@ -9,15 +9,11 @@ import type { Character } from '../../../prisma/generated/client';
  * template del Playbook, en DEV-48.
  */
 
-// CreateCharacterInput se deriva del schema Zod en characters/character.schemas.ts (DEV-81).
-
 /** Un error de validación de un campo de `values` contra el template. */
 export interface ValidationError {
   field: string;
   message: string;
 }
-
-// ListCharactersQuery se deriva del schema Zod en characters/character.schemas.ts (DEV-81).
 
 /** Metadata de paginación del envelope estándar. */
 export interface PaginationMeta {
