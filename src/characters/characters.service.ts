@@ -6,12 +6,11 @@ import {
 } from '@nestjs/common';
 import prisma from '@db';
 import { type Prisma } from '../../prisma/generated/client';
+import type { CharacterView, Paginated } from '@/common/types/character.types';
 import type {
-  CharacterView,
   CreateCharacterInput,
   ListCharactersQuery,
-  Paginated,
-} from '@/common/types/character.types';
+} from './character.schemas';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/pagination';
 import { validateValuesAgainstTemplate } from './template-validation';
 

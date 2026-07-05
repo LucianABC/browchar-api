@@ -1,29 +1,37 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { CharactersService } from './characters.service';
-import type {
-  CreateCharacterInput,
-  ListCharactersQuery,
-} from '@/common/types/character.types';
+import { ZodValidationPipe } from '@/common/validation/zod-validation.pipe';
+import {
+  createCharacterSchema,
+  listCharactersQuerySchema,
+  type CreateCharacterInput,
+  type ListCharactersQuery,
+} from './character.schemas';
 
 /**
- * Rutas base del recurso Characters.
+ * Rutas del recurso Characters.
  *
- * El contrato (firmas + tipos) queda definido acá; la lógica fina de cada
- * endpoint se completa en sus tickets: POST (DEV-47/48/49), GET listado
- * (DEV-57/58) y GET detalle (DEV-61/64). La validación de body/query
- * (ValidationPipe + DTOs) llega con DEV-81.
+ * La validación de la forma del request (DEV-81) se hace con Zod vía
+ * `ZodValidationPipe`; la validación de dominio de `values` contra el template
+ * del Playbook vive en el service (DEV-48).
  */
 @Controller('characters')
 export class CharactersController {
   constructor(private readonly charactersService: CharactersService) {}
 
   @Post()
-  create(@Body() body: CreateCharacterInput) {
+  create(
+    @Body(new ZodValidationPipe(createCharacterSchema))
+    body: CreateCharacterInput,
+  ) {
     return this.charactersService.create(body);
   }
 
   @Get()
-  findAll(@Query() query: ListCharactersQuery) {
+  findAll(
+    @Query(new ZodValidationPipe(listCharactersQuerySchema))
+    query: ListCharactersQuery,
+  ) {
     return this.charactersService.findAll(query);
   }
 

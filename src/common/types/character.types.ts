@@ -9,18 +9,7 @@ import type { Character } from '../../../prisma/generated/client';
  * template del Playbook, en DEV-48.
  */
 
-/** Body de POST /characters: crea un personaje a partir de un Playbook. */
-export interface CreateCharacterInput {
-  name: string;
-  playbookId: string;
-  /** Valores del personaje, a validar contra el template del Playbook (DEV-48). */
-  values: Record<string, unknown>;
-  /**
-   * Dueño del personaje. En modo dev se recibe explícito; cuando exista auth
-   * (DEV-5) saldrá del token y este campo se quitará del body.
-   */
-  ownerId: string;
-}
+// CreateCharacterInput se deriva del schema Zod en characters/character.schemas.ts (DEV-81).
 
 /** Un error de validación de un campo de `values` contra el template. */
 export interface ValidationError {
@@ -28,14 +17,7 @@ export interface ValidationError {
   message: string;
 }
 
-/** Query de GET /characters: filtros + paginación. */
-export interface ListCharactersQuery {
-  playbookId?: string;
-  gameId?: string;
-  search?: string;
-  page?: number;
-  pageSize?: number;
-}
+// ListCharactersQuery se deriva del schema Zod en characters/character.schemas.ts (DEV-81).
 
 /** Metadata de paginación del envelope estándar. */
 export interface PaginationMeta {
