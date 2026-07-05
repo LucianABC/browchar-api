@@ -6,12 +6,11 @@ import {
 } from '@nestjs/common';
 import prisma from '@db';
 import { type Prisma } from '../../prisma/generated/client';
+import type { CharacterView, Paginated } from '@/common/types/character.types';
 import type {
-  CharacterView,
   CreateCharacterInput,
   ListCharactersQuery,
-  Paginated,
-} from '@/common/types/character.types';
+} from './character.schemas';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/pagination';
 import { validateValuesAgainstTemplate } from './template-validation';
 
@@ -27,25 +26,31 @@ export class CharactersService {
    */
   async create(input: CreateCharacterInput): Promise<CharacterView> {
     // 1) El owner debe existir (modo dev: ownerId viene en el body).
-    //    Sin DTOs todavía (DEV-81): validamos acá que no venga vacío, porque
-    //    Prisma no resuelve un `where.id` undefined a null, sino que tira un
-    //    PrismaClientValidationError (500 en vez del 404 esperado).
+    //    El DTO ya garantiza un ownerId no vacío cuando la request pasa por el
+    //    pipe global de nestjs-zod; este chequeo sigue existiendo porque el
+    //    service también se llama directo (tests, futuros callers internos)
+    //    sin pasar por ese pipe, y porque Prisma no resuelve un `where.id`
+    //    vacío a null, sino que tira un PrismaClientValidationError (500 en
+    //    vez del 404 esperado).
     if (!input.ownerId) {
       throw new BadRequestException('ownerId es requerido');
     }
-    const owner = await prisma.user.findUnique({
-      where: { id: input.ownerId },
-      select: { id: true },
-    });
+
+    // 2) Resolver el owner y el Playbook (su versión + template) en paralelo:
+    //    son lookups independientes, ninguno depende del resultado del otro.
+    const [owner, playbook] = await Promise.all([
+      prisma.user.findUnique({
+        where: { id: input.ownerId },
+        select: { id: true },
+      }),
+      prisma.playbook.findUnique({
+        where: { id: input.playbookId },
+        select: { id: true, name: true, version: true, template: true },
+      }),
+    ]);
     if (!owner) {
       throw new NotFoundException(`User ${input.ownerId} no encontrado`);
     }
-
-    // 2) Resolver el Playbook y su versión + template.
-    const playbook = await prisma.playbook.findUnique({
-      where: { id: input.playbookId },
-      select: { id: true, name: true, version: true, template: true },
-    });
     if (!playbook) {
       throw new NotFoundException(`Playbook ${input.playbookId} no encontrado`);
     }
