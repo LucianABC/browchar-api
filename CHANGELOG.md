@@ -11,3 +11,7 @@ Entries are added automatically by `npm run commit` — see
 a known issue or a future consideration in a commit message.
 
 ## [Unreleased]
+
+### Fixed
+
+- **config:** enable CORS for the frontend dev origin
