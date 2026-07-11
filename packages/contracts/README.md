@@ -50,7 +50,10 @@ Se publica a **GitHub Packages** bajo el scope `@tpklabs`. Requisitos:
    //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
    ```
 3. `GITHUB_TOKEN` en el entorno con permiso `read:packages` (consumir) o
-   `write:packages` (publicar). **Nunca** hardcodear el token en el `.npmrc`.
+   `write:packages` (publicar) — **solo ese scope, con expiración**; nunca
+   hardcodear el token en el `.npmrc`. Consideraciones de seguridad completas
+   (scope mínimo, expiración, respuesta ante filtración, checklist de CI):
+   `docs/security/github-packages-token.md`.
 
    Atajo si ya usás la GitHub CLI (reusa su sesión, sin crear un PAT aparte):
 

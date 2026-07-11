@@ -151,7 +151,9 @@ npm publish           # runs the build via prepublishOnly, then uploads
 > permissions automatically — no personal tokens to create or rotate. The
 > manual PAT flow above is the bridge until then.
 
-See `packages/contracts/README.md` for the full publish/consume reference.
+See `packages/contracts/README.md` for the full publish/consume reference, and
+`docs/security/github-packages-token.md` for the token's security
+considerations (minimal scope, expiration, leak response) and the CI checklist.
 
 ---
 
