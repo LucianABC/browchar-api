@@ -1,13 +1,17 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import prisma from '@db';
 import type { PlaybookView } from '@/common/types/playbook.types';
+import type { ListPlaybooksQuery } from './playbook.schemas';
 
 @Injectable()
 export class PlaybooksService {
   private readonly logger = new Logger(PlaybooksService.name);
 
-  async findAll(): Promise<PlaybookView[]> {
+  async findAll(query: ListPlaybooksQuery = {}): Promise<PlaybookView[]> {
     const playbooks = await prisma.playbook.findMany({
+      where: {
+        ...(query.gameId ? { gameId: query.gameId } : {}),
+      },
       include: {
         game: {
           select: {
