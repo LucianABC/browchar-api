@@ -14,6 +14,7 @@ a known issue or a future consideration in a commit message.
 
 ### Fixed
 
+- **seed:** render empty Moves sections and fix invalid field types
 - **config:** enable CORS for the frontend dev origin
 
 ### Future Considerations
