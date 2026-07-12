@@ -71,6 +71,27 @@ describe('PlaybooksService', () => {
 
       expect(await service.findAll()).toEqual([]);
     });
+
+    it('queries with no gameId filter when none is given', async () => {
+      prismaMock.playbook.findMany.mockResolvedValue([]);
+
+      await service.findAll();
+
+      expect(prismaMock.playbook.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ where: {} }),
+      );
+    });
+
+    it('filters by gameId when given', async () => {
+      prismaMock.playbook.findMany.mockResolvedValue([mockRawPlaybook]);
+
+      const result = await service.findAll({ gameId: 'game-1' });
+
+      expect(result).toEqual([expectedView]);
+      expect(prismaMock.playbook.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { gameId: 'game-1' } }),
+      );
+    });
   });
 
   describe('findOne', () => {

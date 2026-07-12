@@ -4,5 +4,6 @@
  */
 export * from './fields';
 export * from './character.schemas';
+export * from './playbook.schemas';
 export * from './template-schema';
 export * from './validation';
