@@ -32,20 +32,20 @@ export const apocalypseWorldPlaybookSpecificSections: Record<string, any[]> = {
       fields: [
         {
           id: "gang_size",
-          label: " Size",
-          type: "NUMBER",
+          label: "Size",
+          type: "TEXTNUMBER",
         },
         {
           id: "gang_harm",
-          label: " Harm",
+          label: "Harm",
           type: "TEXT",
         },
         {
           id: "gang_armor",
-          label: " Armor",
+          label: "Armor",
           type: "TEXT"
         },
-        { id: "gang_tags", label: " Tags", type: "TEXTAREA" }
+        { id: "gang_tags", label: "Tags", type: "TEXTAREA" }
 
       ]
     },
@@ -147,20 +147,20 @@ export const apocalypseWorldPlaybookSpecificSections: Record<string, any[]> = {
       fields: [
         {
           id: "hardholder_size",
-          label: " Size",
-          type: "NUMBER",
+          label: "Size",
+          type: "TEXTNUMBER",
         },
         {
           id: "hardholder_harm",
-          label: " Harm",
+          label: "Harm",
           type: "TEXT",
         },
         {
           id: "hardholder_armor",
-          label: " Armor",
+          label: "Armor",
           type: "TEXT"
         },
-        { id: "hardholder_tags", label: " Tags", type: "TEXTAREA" }
+        { id: "hardholder_tags", label: "Tags", type: "TEXTAREA" }
 
       ]
     },

@@ -131,11 +131,27 @@
     },
     {
       "id": "class_moves",
-      "title": "Class Moves"
+      "title": "Class Moves",
+      "fields": [
+        {
+          "id": "class_moves",
+          "label": "Class Moves",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
     },
-     {
+    {
       "id": "other_moves",
-      "title": "Other Moves"
+      "title": "Other Moves",
+      "fields": [
+        {
+          "id": "other_moves",
+          "label": "Other Moves",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
     },
     {
       "id": "harm",
