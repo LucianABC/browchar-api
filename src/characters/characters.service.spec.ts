@@ -105,6 +105,9 @@ describe('CharactersService', () => {
           data: expect.objectContaining({
             playbookId: 'pb-1',
             playbookVersion: 2,
+            // DEV-172: `values` se persiste tal cual; el server ya NO inyecta
+            // character_name/playbook_name (viven en `name`/`playbookId`).
+            values: { moves: [] },
           }),
         }),
       );

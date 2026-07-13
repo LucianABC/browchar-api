@@ -45,7 +45,7 @@ export class CharactersService {
       }),
       prisma.playbook.findUnique({
         where: { id: input.playbookId },
-        select: { id: true, name: true, version: true, template: true },
+        select: { id: true, version: true, template: true },
       }),
     ]);
     if (!owner) {
@@ -55,20 +55,14 @@ export class CharactersService {
       throw new NotFoundException(`Playbook ${input.playbookId} no encontrado`);
     }
 
-    // 3) Completar los campos derivados que no son input libre del usuario:
-    //    - character_name refleja el `name` del body (la columna es la fuente de verdad);
-    //    - playbook_name sale del Playbook elegido (set predefinido).
-    //    El cliente no manda estos campos; el servidor los inyecta.
-    const effectiveValues: Record<string, unknown> = {
-      ...input.values,
-      character_name: input.name,
-      playbook_name: playbook.name,
-    };
-
-    // 4) Validar `effectiveValues` contra el template (DEV-48, unificado en
-    //    DEV-153 vía el schema Zod compartido `buildTemplateSchema`).
+    // 3) Validar `values` contra el template (DEV-48, unificado en DEV-153 vía
+    //    el schema Zod compartido `buildTemplateSchema`).
+    //    DEV-172: el nombre del personaje vive en la columna `name` y el
+    //    playbook en `playbookId`/`playbookVersion`; NO se duplican dentro de
+    //    `values` (antes se inyectaban `character_name`/`playbook_name`, que en
+    //    el form aparecían como campos redundantes que el server pisaba).
     const result = buildTemplateSchema(playbook.template).safeParse(
-      effectiveValues,
+      input.values,
     );
     if (!result.success) {
       const errors = result.error.issues.map((issue) => ({
@@ -81,14 +75,14 @@ export class CharactersService {
       });
     }
 
-    // 5) Persistir (Prisma directo, sin repository — CLAUDE.md).
+    // 4) Persistir (Prisma directo, sin repository — CLAUDE.md).
     const character = await prisma.character.create({
       data: {
         name: input.name,
         ownerId: owner.id,
         playbookId: playbook.id,
         playbookVersion: playbook.version,
-        values: effectiveValues as Prisma.InputJsonValue,
+        values: input.values as Prisma.InputJsonValue,
       },
     });
 
