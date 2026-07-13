@@ -11,18 +11,6 @@
       "description": "Core character details shared by every Apocalypse World playbook.",
       "fields": [
         {
-          "id": "character_name",
-          "label": "Name",
-          "type": "TEXT",
-          "required": true
-        },
-        {
-          "id": "playbook_name",
-          "label": "Playbook",
-          "type": "TEXT",
-          "required": true
-        },
-        {
           "id": "look",
           "label": "Look",
           "type": "TEXTAREA",
