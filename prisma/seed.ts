@@ -9,6 +9,8 @@ import { env } from '../src/config/env';
 
 import { apocalypseWorldPlaybookSpecificSections } from '../data/playbooks/apocalypse-world/playbookSections';
 import { dungeonWorldPlaybookSpecificSections } from '../data/playbooks/dungeon-world/playbookSections';
+import { masksPlaybookSpecificSections } from '../data/playbooks/masks/playbookSections';
+import { thirstySwordLesbiansPlaybookSpecificSections } from '../data/playbooks/thirsty-sword-lesbians/playbookSections';
 
 const logger = new Logger('Seed');
 
@@ -52,6 +54,20 @@ const PLAYBOOK_SEEDS_BY_GAME_KEY: Record<string, PlaybookSeedConfig> = {
   DW: {
     folderName: 'dungeon-world',
     specificSections: dungeonWorldPlaybookSpecificSections as Record<
+      string,
+      SeedTemplateSection[]
+    >,
+  },
+  MASKS: {
+    folderName: 'masks',
+    specificSections: masksPlaybookSpecificSections as Record<
+      string,
+      SeedTemplateSection[]
+    >,
+  },
+  TSL: {
+    folderName: 'thirsty-sword-lesbians',
+    specificSections: thirstySwordLesbiansPlaybookSpecificSections as Record<
       string,
       SeedTemplateSection[]
     >,

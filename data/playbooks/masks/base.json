@@ -1,0 +1,147 @@
+{
+  "id": "masks-base",
+  "gameId": "masks",
+  "name": "Masks Base",
+  "version": 1,
+  "description": "Base playbook template for Masks: A New Generation characters. Shared structure across all playbooks: Labels, Conditions, Influence and Potential. Content based on Masks: A New Generation (Magpie Games), CC BY 4.0.",
+  "template": [
+    {
+      "id": "identity",
+      "title": "Identity",
+      "description": "Who your hero is under the mask.",
+      "fields": [
+        {
+          "id": "real_name",
+          "label": "Real name",
+          "type": "TEXT",
+          "defaultValue": ""
+        },
+        {
+          "id": "look",
+          "label": "Look",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        },
+        {
+          "id": "abilities",
+          "label": "Powers & abilities",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "labels",
+      "title": "Labels",
+      "description": "How you see yourself right now. Labels shift as your self-image changes.",
+      "fields": [
+        {
+          "id": "danger",
+          "label": "Danger",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "freak",
+          "label": "Freak",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "savior",
+          "label": "Savior",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "superior",
+          "label": "Superior",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "mundane",
+          "label": "Mundane",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        }
+      ]
+    },
+    {
+      "id": "conditions",
+      "title": "Conditions",
+      "description": "Mark a condition when you take emotional harm; clear it as the fiction allows.",
+      "fields": [
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "type": "CHECKBOX",
+          "options": [
+            { "label": "Afraid", "value": "afraid" },
+            { "label": "Angry", "value": "angry" },
+            { "label": "Guilty", "value": "guilty" },
+            { "label": "Hopeless", "value": "hopeless" },
+            { "label": "Insecure", "value": "insecure" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "potential",
+      "title": "Potential",
+      "description": "Mark potential to advance. Fill the track to take an advancement.",
+      "fields": [
+        {
+          "id": "potential",
+          "label": "Potential",
+          "type": "PROGRESS",
+          "defaultValue": 0,
+          "maxValue": 5
+        }
+      ]
+    },
+    {
+      "id": "influence",
+      "title": "Influence",
+      "description": "Emotional sway between characters.",
+      "fields": [
+        {
+          "id": "influence_over_you",
+          "label": "Who has Influence over you",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        },
+        {
+          "id": "influence_you_have",
+          "label": "Who you have Influence over",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "relationships",
+      "title": "Team & Relationships",
+      "fields": [
+        {
+          "id": "relationships",
+          "label": "Relationships",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "fields": [
+        {
+          "id": "notes",
+          "label": "Notes",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    }
+  ]
+}
