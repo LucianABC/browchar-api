@@ -121,5 +121,139 @@ export const thirstySwordLesbiansPlaybookSpecificSections: Record<string, any[]>
         { id: "commandments", label: "Commandments & Convictions", type: "TEXTAREA", description: "The rules you were raised with; cross off those you repudiate.", defaultValue: "" }
       ]
     }
+  ],
+
+  Devoted: [
+    {
+      id: "class_details",
+      title: "The Devoted",
+      description: "Your loyalty is your strength and your weakness — you'd sacrifice anything for what you believe in.",
+      fields: [
+        {
+          id: "playbook_moves",
+          label: "Playbook Moves",
+          type: "CHECKBOX",
+          options: [
+            { label: "Fanatical Self-Sacrifice", value: "fanatical_self_sacrifice" },
+            { label: "For the Cause!", value: "for_the_cause" },
+            { label: "Gallant Rescue", value: "gallant_rescue" },
+            { label: "Power of Conviction", value: "power_of_conviction" },
+            { label: "Lay on Hands", value: "lay_on_hands" },
+            { label: "Loyal Steed", value: "loyal_steed" },
+            { label: "Toxic Devotion", value: "toxic_devotion" },
+            { label: "Last Stand", value: "last_stand" }
+          ]
+        },
+        { id: "devotion", label: "Devotion", type: "TEXT", description: "What you're devoted to: a cause, a person, or a higher power.", defaultValue: "" },
+        { id: "tenets", label: "Tenets", type: "TEXTAREA", description: "Three tenets of your devotion you're tempted to violate.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Infamous: [
+    {
+      id: "class_details",
+      title: "The Infamous",
+      description: "You have a wicked past you're trying to leave behind — but no one lets you forget it.",
+      fields: [
+        {
+          id: "playbook_moves",
+          label: "Playbook Moves",
+          type: "CHECKBOX",
+          options: [
+            { label: "Wicked Past", value: "wicked_past" },
+            { label: "Make It Right", value: "make_it_right" },
+            { label: "Always Suspect", value: "always_suspect" },
+            { label: "Talons of the Past", value: "talons_of_the_past" },
+            { label: "They Can Change, Too", value: "they_can_change_too" },
+            { label: "Used to Disappointment", value: "used_to_disappointment" },
+            { label: "What Makes a Home", value: "what_makes_a_home" },
+            { label: "Who's the Monster?", value: "whos_the_monster" },
+            { label: "Undeserving", value: "undeserving" },
+            { label: "Your Wicked Heart", value: "your_wicked_heart" }
+          ]
+        },
+        { id: "vow", label: "Vow", type: "TEXTAREA", description: "The harmful acts you swear never to commit again.", defaultValue: "" },
+        { id: "past", label: "Your wicked past", type: "TEXTAREA", description: "What you did that cannot be undone.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  "Nature Witch": [
+    {
+      id: "class_details",
+      title: "The Nature Witch",
+      description: "You draw power from the living world and the bonds of love that grow within it.",
+      fields: [
+        {
+          id: "playbook_moves",
+          label: "Playbook Moves",
+          type: "CHECKBOX",
+          options: [
+            { label: "Wild Friends", value: "wild_friends" },
+            { label: "Awaken the Wild", value: "awaken_the_wild" },
+            { label: "Familiar", value: "familiar" },
+            { label: "I Ship It", value: "i_ship_it" },
+            { label: "The Magic of Love", value: "the_magic_of_love" },
+            { label: "Nature's Touch", value: "natures_touch" }
+          ]
+        },
+        { id: "familiar", label: "Familiar", type: "TEXT", description: "Your animal companion.", defaultValue: "" },
+        { id: "trials", label: "Trials", type: "TEXTAREA", description: "Four trials you're working to complete.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  "Spooky Witch": [
+    {
+      id: "class_details",
+      title: "The Spooky Witch",
+      description: "You keep company with the weird and the unseen, and pay the price in belonging.",
+      fields: [
+        {
+          id: "playbook_moves",
+          label: "Playbook Moves",
+          type: "CHECKBOX",
+          options: [
+            { label: "The Unseen", value: "the_unseen" },
+            { label: "I Like Snails!", value: "i_like_snails" },
+            { label: "Astral Dance", value: "astral_dance" },
+            { label: "Divination", value: "divination" },
+            { label: "Dreamwalk", value: "dreamwalk" },
+            { label: "Eerie Companion", value: "eerie_companion" },
+            { label: "Friends in Weird Places", value: "friends_in_weird_places" },
+            { label: "Talk Nerdy to Me", value: "talk_nerdy_to_me" },
+            { label: "Witchfire", value: "witchfire" }
+          ]
+        },
+        { id: "the_unseen", label: "The Unseen", type: "TEXTAREA", description: "The mysterious entity you commune with.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Trickster: [
+    {
+      id: "class_details",
+      title: "The Trickster",
+      description: "You hide your heart behind a clever mask — until you can't hold it in any longer.",
+      fields: [
+        {
+          id: "playbook_moves",
+          label: "Playbook Moves",
+          type: "CHECKBOX",
+          options: [
+            { label: "Ew, Feelings", value: "ew_feelings" },
+            { label: "The Mask", value: "the_mask" },
+            { label: "Center of the Web", value: "center_of_the_web" },
+            { label: "Deft Fingers", value: "deft_fingers" },
+            { label: "Devious Scheme", value: "devious_scheme" },
+            { label: "Knives behind the Mask", value: "knives_behind_the_mask" },
+            { label: "Play the Part", value: "play_the_part" }
+          ]
+        },
+        { id: "the_mask", label: "The Mask", type: "TEXT", description: "The persona you present to the world.", defaultValue: "" },
+        { id: "too_many_feelings", label: "Too Many Feelings", type: "PROGRESS", description: "0-4. At 4 you tear off the mask and let it all out, then reset.", defaultValue: 0, maxValue: 4 }
+      ]
+    }
   ]
 };

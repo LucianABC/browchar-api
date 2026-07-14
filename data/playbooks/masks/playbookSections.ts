@@ -60,5 +60,82 @@ export const masksPlaybookSpecificSections: Record<string, any[]> = {
         { id: "expectations", label: "Expectations", type: "TEXTAREA", description: "What your Legacy demands of you.", defaultValue: "" }
       ]
     }
+  ],
+
+  Delinquent: [
+    {
+      id: "class_details",
+      title: "The Delinquent",
+      description: "You'd rather cut loose and cause trouble than play the hero — but you care more than you let on.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Doomed: [
+    {
+      id: "class_details",
+      title: "The Doomed",
+      description: "You carry a terrible fate. You'll do good while you still can, but your Doom is coming.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" },
+        { id: "doom_track", label: "Doom Track", type: "PROGRESS", description: "Fills as your Doom draws nearer.", defaultValue: 0, maxValue: 5 },
+        { id: "doomsigns", label: "Doomsigns", type: "TEXTAREA", description: "The omens that mark your approaching fate.", defaultValue: "" },
+        { id: "nemesis", label: "Nemesis", type: "TEXT", description: "The power behind your Doom.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Janus: [
+    {
+      id: "class_details",
+      title: "The Janus",
+      description: "You live a double life, torn between your heroics and the mundane world that needs you.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" },
+        { id: "secret_identity", label: "Secret identity", type: "TEXT", defaultValue: "" },
+        { id: "obligations", label: "Obligations", type: "TEXTAREA", description: "The mundane commitments pulling at you.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Outsider: [
+    {
+      id: "class_details",
+      title: "The Outsider",
+      description: "You come from somewhere else entirely — another world, time, or people — and you're finding your place here.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" },
+        { id: "origin", label: "Where you're from", type: "TEXT", defaultValue: "" },
+        { id: "acclimation", label: "Acclimation", type: "TEXTAREA", description: "What you're learning — and struggling with — about this world.", defaultValue: "" }
+      ]
+    }
+  ],
+
+  "Protégé": [
+    {
+      id: "class_details",
+      title: "The Protégé",
+      description: "You're the trainee of an established hero, learning the ropes and stepping out of their shadow.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" },
+        { id: "mentor", label: "Mentor", type: "TEXT", defaultValue: "" },
+        { id: "mentor_resources", label: "Mentor's resources & backup", type: "TEXTAREA", defaultValue: "" }
+      ]
+    }
+  ],
+
+  Transformed: [
+    {
+      id: "class_details",
+      title: "The Transformed",
+      description: "Something changed you into a form the world sees as monstrous. You're still you — mostly.",
+      fields: [
+        { id: "playbook_moves", label: "Playbook Moves", type: "TEXTAREA", defaultValue: "" },
+        { id: "the_change", label: "The Change", type: "TEXTAREA", description: "What you became.", defaultValue: "" },
+        { id: "what_you_lost", label: "What you lost", type: "TEXTAREA", defaultValue: "" }
+      ]
+    }
   ]
 };
