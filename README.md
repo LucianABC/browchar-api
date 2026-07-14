@@ -22,6 +22,27 @@ Backend para gestionar hojas de personaje multi-sistema (PBTA, D&D, Vampiro, etc
 
 ---
 
+## Cómo levantar la API
+
+```bash
+npm install                # instala deps (incluye workspaces, ej. packages/contracts)
+cp .env.example .env       # completar variables si hace falta (DATABASE_URL, PORT, etc.)
+docker compose up -d       # levanta Postgres
+npx prisma migrate dev     # aplica migraciones y regenera el Prisma Client
+npx prisma db seed         # opcional: carga playbooks/datos iniciales
+npm run start:dev          # levanta la API con watch (corre contracts:build antes)
+```
+
+La API queda escuchando en `PORT` (por defecto `3000`, ver `.env.example`).
+
+Otras variantes de arranque:
+
+- `npm run start` — sin watch
+- `npm run start:debug` — con debugger e inspector (`--inspect-brk`)
+- `npm run build && npm run start:prod` — build de producción
+
+---
+
 ### PRISMA
 
 Formatear schema:
