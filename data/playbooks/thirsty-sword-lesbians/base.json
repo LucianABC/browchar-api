@@ -1,0 +1,123 @@
+{
+  "id": "thirsty-sword-lesbians-base",
+  "gameId": "thirsty-sword-lesbians",
+  "name": "Thirsty Sword Lesbians Base",
+  "version": 1,
+  "description": "Base playbook template for Thirsty Sword Lesbians characters. Shared structure across all playbooks: the five stats, Conditions, Strings and XP. Content based on the Thirsty Sword Lesbians SRD (poweredbylesbians.com), CC BY-SA 4.0.",
+  "template": [
+    {
+      "id": "identity",
+      "title": "Identity",
+      "description": "Your look and aesthetic: demeanor, clothing, and the sword you carry.",
+      "fields": [
+        {
+          "id": "look",
+          "label": "Look & aesthetic",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "stats",
+      "title": "Stats",
+      "description": "Choose your playbook's stat column, then add +1 to two different stats.",
+      "fields": [
+        {
+          "id": "daring",
+          "label": "Daring",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "grace",
+          "label": "Grace",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "heart",
+          "label": "Heart",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "wit",
+          "label": "Wit",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        },
+        {
+          "id": "spirit",
+          "label": "Spirit",
+          "type": "TEXTNUMBER",
+          "defaultValue": 0
+        }
+      ]
+    },
+    {
+      "id": "conditions",
+      "title": "Conditions",
+      "description": "A marked condition gives -2 to a stat until it is cleared.",
+      "fields": [
+        {
+          "id": "conditions",
+          "label": "Conditions",
+          "type": "CHECKBOX",
+          "options": [
+            { "label": "Angry", "value": "angry" },
+            { "label": "Frightened", "value": "frightened" },
+            { "label": "Guilty", "value": "guilty" },
+            { "label": "Hopeless", "value": "hopeless" },
+            { "label": "Insecure", "value": "insecure" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "progression",
+      "title": "Experience",
+      "description": "Mark XP when you roll a miss or as your moves instruct; spend it on advances.",
+      "fields": [
+        {
+          "id": "xp",
+          "label": "XP",
+          "type": "PROGRESS",
+          "defaultValue": 0,
+          "maxValue": 5
+        },
+        {
+          "id": "advances",
+          "label": "Advances",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "strings",
+      "title": "Strings",
+      "description": "Emotional leverage you hold over others (and they over you).",
+      "fields": [
+        {
+          "id": "strings",
+          "label": "Strings",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "title": "Notes",
+      "fields": [
+        {
+          "id": "notes",
+          "label": "Notes",
+          "type": "TEXTAREA",
+          "defaultValue": ""
+        }
+      ]
+    }
+  ]
+}
