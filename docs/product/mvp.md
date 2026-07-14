@@ -1,4 +1,5 @@
-# MVP — RPG Character Manager 
+# MVP — RPG Character Manager
+
 Scope: Apocalypse World  
 Last updated: 2026-05-20
 
@@ -19,6 +20,8 @@ Jugadores de rol que quieren crear y guardar personajes de forma más ordenada q
 En esta primera versión, el foco está en jugadores individuales que quieren crear y consultar sus propios personajes.
 
 No se contempla todavía una experiencia completa para Game Masters ni gestión de campañas.
+
+Ver [`personas.md`](./personas.md) para el detalle de las personas principales (jugador que ya juega AW, jugador nuevo/curioso) y las que quedan fuera del MVP.
 
 ---
 
