@@ -21,6 +21,8 @@ En esta primera versión, el foco está en jugadores individuales que quieren cr
 
 No se contempla todavía una experiencia completa para Game Masters ni gestión de campañas.
 
+Ver [`personas.md`](./personas.md) para el detalle de las personas principales (jugador que ya juega AW, jugador nuevo/curioso) y las que quedan fuera del MVP.
+
 ---
 
 ## Problema que resuelve
