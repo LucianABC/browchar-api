@@ -162,6 +162,14 @@ describe('CharactersService', () => {
       );
     });
 
+    it('orders by updatedAt desc (most recently used first)', async () => {
+      await service.findAll({});
+
+      expect(prismaMock.character.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ orderBy: { updatedAt: 'desc' } }),
+      );
+    });
+
     it('passes playbookId filter to prisma', async () => {
       await service.findAll({ playbookId: 'pb-1' });
 

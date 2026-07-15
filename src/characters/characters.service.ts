@@ -101,6 +101,9 @@ export class CharactersService {
    * Cada item se enriquece con `playbookName`/`gameName` resueltos vía el join
    * `playbook.game` (DEV-60), para que las tarjetas del front no dependan de
    * cruzar el listado de playbooks a mano.
+   *
+   * Orden por `updatedAt` desc: "más recientes" = últimos en uso (la home
+   * muestra los primeros N como "personajes recientes"), no los últimos creados.
    */
   async findAll(
     query: ListCharactersQuery,
@@ -121,7 +124,7 @@ export class CharactersService {
     const [rows, total] = await Promise.all([
       prisma.character.findMany({
         where,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { updatedAt: 'desc' },
         skip: (page - 1) * pageSize,
         take: pageSize,
         include: {
