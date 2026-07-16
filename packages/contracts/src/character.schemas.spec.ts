@@ -1,6 +1,7 @@
 import {
   createCharacterSchema,
   listCharactersQuerySchema,
+  updateCharacterSchema,
 } from './character.schemas';
 
 describe('createCharacterSchema', () => {
@@ -37,6 +38,36 @@ describe('createCharacterSchema', () => {
       name: 'x',
       ownerId: 'u',
     });
+    expect(result.success).toBe(false);
+  });
+});
+
+describe('updateCharacterSchema', () => {
+  it('acepta sólo name', () => {
+    const parsed = updateCharacterSchema.parse({ name: 'Marlene' });
+    expect(parsed).toEqual({ name: 'Marlene' });
+  });
+
+  it('acepta sólo values', () => {
+    const parsed = updateCharacterSchema.parse({ values: { cool: 2 } });
+    expect(parsed).toEqual({ values: { cool: 2 } });
+  });
+
+  it('acepta name y values juntos', () => {
+    const parsed = updateCharacterSchema.parse({
+      name: 'Marlene',
+      values: { cool: 2 },
+    });
+    expect(parsed).toEqual({ name: 'Marlene', values: { cool: 2 } });
+  });
+
+  it('rechaza un body vacío', () => {
+    const result = updateCharacterSchema.safeParse({});
+    expect(result.success).toBe(false);
+  });
+
+  it('rechaza name vacío', () => {
+    const result = updateCharacterSchema.safeParse({ name: '' });
     expect(result.success).toBe(false);
   });
 });

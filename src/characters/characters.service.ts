@@ -14,6 +14,7 @@ import type {
 import type {
   CreateCharacterInput,
   ListCharactersQuery,
+  UpdateCharacterInput,
 } from './character.schemas';
 import { DEFAULT_PAGE, DEFAULT_PAGE_SIZE } from '@/common/pagination';
 import { buildTemplateSchema } from '@tpklabs/browchar-contracts';
@@ -159,5 +160,68 @@ export class CharactersService {
       throw new NotFoundException(`Character ${id} no encontrado`);
     }
     return character;
+  }
+
+  /**
+   * PATCH /characters/:id — update parcial. Respeta soft-delete (404 si no
+   * existe o está borrado). Las validaciones de ownership se completan en
+   * DEV-64, igual que en `findOne`.
+   *
+   * Si viene `values`, se revalida completo contra el template del Playbook
+   * del personaje (mismo mecanismo que `create`, DEV-48/DEV-153) y reemplaza
+   * el objeto entero — no hace merge campo a campo.
+   */
+  async update(
+    id: string,
+    input: UpdateCharacterInput,
+  ): Promise<CharacterView> {
+    const character = await prisma.character.findFirst({
+      where: { id, deletedAt: null },
+    });
+    if (!character) {
+      throw new NotFoundException(`Character ${id} no encontrado`);
+    }
+
+    const data: Prisma.CharacterUpdateInput = {};
+
+    if (input.name !== undefined) {
+      data.name = input.name;
+    }
+
+    if (input.values !== undefined) {
+      const playbook = await prisma.playbook.findUnique({
+        where: { id: character.playbookId },
+        select: { template: true },
+      });
+      if (!playbook) {
+        throw new NotFoundException(
+          `Playbook ${character.playbookId} no encontrado`,
+        );
+      }
+
+      const result = buildTemplateSchema(playbook.template).safeParse(
+        input.values,
+      );
+      if (!result.success) {
+        const errors = result.error.issues.map((issue) => ({
+          field: String(issue.path[0] ?? ''),
+          message: issue.message,
+        }));
+        throw new BadRequestException({
+          message: 'Los datos del personaje no son válidos para el Playbook',
+          errors,
+        });
+      }
+
+      data.values = input.values as Prisma.InputJsonValue;
+    }
+
+    const updated = await prisma.character.update({
+      where: { id },
+      data,
+    });
+
+    this.logger.log(`Character actualizado: ${updated.id}`);
+    return updated;
   }
 }

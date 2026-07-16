@@ -18,6 +18,7 @@ jest.mock('@db', () => ({
       findMany: jest.fn(),
       findFirst: jest.fn(),
       count: jest.fn(),
+      update: jest.fn(),
     },
   },
 }));
@@ -32,6 +33,7 @@ const prismaMock = prisma as unknown as {
     findMany: AsyncMock;
     findFirst: AsyncMock;
     count: AsyncMock;
+    update: AsyncMock;
   };
 };
 
@@ -246,6 +248,95 @@ describe('CharactersService', () => {
           where: expect.objectContaining({ id: 'char-1', deletedAt: null }),
         }),
       );
+    });
+  });
+
+  describe('update', () => {
+    it('throws NotFoundException when character does not exist', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(null);
+
+      await expect(
+        service.update('missing', { name: 'Nuevo nombre' }),
+      ).rejects.toThrow(NotFoundException);
+      expect(prismaMock.character.update).not.toHaveBeenCalled();
+    });
+
+    it('throws NotFoundException when character is soft-deleted', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(null);
+
+      await expect(
+        service.update('char-1', { name: 'Nuevo nombre' }),
+      ).rejects.toThrow(NotFoundException);
+      expect(prismaMock.character.findFirst).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({ id: 'char-1', deletedAt: null }),
+        }),
+      );
+    });
+
+    it('updates only name without touching the playbook', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(mockCharacter);
+      prismaMock.character.update.mockResolvedValue({
+        ...mockCharacter,
+        name: 'Nuevo nombre',
+      });
+
+      const result = await service.update('char-1', { name: 'Nuevo nombre' });
+
+      expect(prismaMock.playbook.findUnique).not.toHaveBeenCalled();
+      expect(prismaMock.character.update).toHaveBeenCalledWith({
+        where: { id: 'char-1' },
+        data: { name: 'Nuevo nombre' },
+      });
+      expect(result.name).toBe('Nuevo nombre');
+    });
+
+    it('revalidates values against the playbook template when values is sent', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(mockCharacter);
+      prismaMock.playbook.findUnique.mockResolvedValue(mockPlaybook);
+      prismaMock.character.update.mockResolvedValue({
+        ...mockCharacter,
+        values: { moves: ['punch'] },
+      });
+
+      await service.update('char-1', { values: { moves: ['punch'] } });
+
+      expect(prismaMock.playbook.findUnique).toHaveBeenCalledWith(
+        expect.objectContaining({ where: { id: mockCharacter.playbookId } }),
+      );
+      expect(prismaMock.character.update).toHaveBeenCalledWith({
+        where: { id: 'char-1' },
+        data: { values: { moves: ['punch'] } },
+      });
+    });
+
+    it('throws BadRequestException when values do not match the template', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(mockCharacter);
+      prismaMock.playbook.findUnique.mockResolvedValue({
+        ...mockPlaybook,
+        template: [
+          {
+            fields: [
+              { id: 'name', type: 'TEXT', label: 'Nombre', required: true },
+            ],
+          },
+        ],
+      });
+
+      await expect(service.update('char-1', { values: {} })).rejects.toThrow(
+        BadRequestException,
+      );
+      expect(prismaMock.character.update).not.toHaveBeenCalled();
+    });
+
+    it('throws NotFoundException when the character playbook no longer exists', async () => {
+      prismaMock.character.findFirst.mockResolvedValue(mockCharacter);
+      prismaMock.playbook.findUnique.mockResolvedValue(null);
+
+      await expect(
+        service.update('char-1', { values: { moves: [] } }),
+      ).rejects.toThrow(NotFoundException);
+      expect(prismaMock.character.update).not.toHaveBeenCalled();
     });
   });
 });

@@ -1,8 +1,17 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CharactersService } from './characters.service';
 import {
   CreateCharacterDto,
   ListCharactersQueryDto,
+  UpdateCharacterDto,
 } from './character.schemas';
 
 /**
@@ -30,5 +39,10 @@ export class CharactersController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.charactersService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body: UpdateCharacterDto) {
+    return this.charactersService.update(id, body);
   }
 }
