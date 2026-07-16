@@ -1,0 +1,85 @@
+name: Publish contracts
+
+# Publica @tpklabs/browchar-contracts a GitHub Packages cuando un merge a main
+# toca el paquete. Reemplaza el publish manual (el pre-commit hook solo fuerza
+# el bump de versión, no el publish — ver scripts/check-contracts-version.mjs).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/contracts/**'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      # .npmrc referencia ${GITHUB_TOKEN}; con packages:write declarado arriba,
+      # el token del workflow alcanza para publicar (mismo owner, sin PAT).
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Read package version
+        id: version
+        run: echo "version=$(node -p "require('./packages/contracts/package.json').version")" >> "$GITHUB_OUTPUT"
+
+      # Idempotencia: si la versión ya está en el registry (p. ej. un push a
+      # main que toca el paquete sin bumpear), no intenta republicar.
+      - name: Check if version is already published
+        id: registry
+        run: |
+          if npm view "@tpklabs/browchar-contracts@${{ steps.version.outputs.version }}" version > /dev/null 2>&1; then
+            echo "Version ${{ steps.version.outputs.version }} ya publicada — no hay nada que hacer."
+            echo "published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "published=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Publish to GitHub Packages
+        if: steps.registry.outputs.published == 'false'
+        run: npm publish -w @tpklabs/browchar-contracts
+
+      # Anti-drift (DEV-53: contracts quedó en 0.2.0 con la API pineando
+      # ^0.1.0). El pin local debe matchear la versión recién publicada.
+      - name: Check contracts pin in browchar-api
+        if: steps.registry.outputs.published == 'false'
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          PIN=$(node -p "require('./package.json').dependencies['@tpklabs/browchar-contracts']")
+          if npx --yes semver --range "$PIN" "$VERSION" > /dev/null; then
+            echo "browchar-api pinea $PIN — compatible con $VERSION."
+          else
+            echo "::error::browchar-api/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión recién publicada $VERSION. Actualizá el pin para evitar drift."
+            exit 1
+          fi
+
+      # Best effort: GITHUB_TOKEN está scopeado a este repo, así que leer
+      # browchar-fe puede fallar — en ese caso avisa en vez de romper.
+      - name: Check contracts pin in browchar-fe (warning only)
+        if: steps.registry.outputs.published == 'false'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          FE_PKG=$(gh api repos/TPKLabs/browchar-fe/contents/package.json --jq '.content' 2>/dev/null | base64 -d) || {
+            echo "::warning::No se pudo leer browchar-fe/package.json con el GITHUB_TOKEN del workflow — verificá a mano que el pin de @tpklabs/browchar-contracts matchee $VERSION."
+            exit 0
+          }
+          PIN=$(node -p "JSON.parse(process.argv[1]).dependencies['@tpklabs/browchar-contracts']" "$FE_PKG")
+          if npx --yes semver --range "$PIN" "$VERSION" > /dev/null; then
+            echo "browchar-fe pinea $PIN — compatible con $VERSION."
+          else
+            echo "::warning::browchar-fe/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión recién publicada $VERSION. Abrí un PR en browchar-fe para actualizar el pin."
+          fi

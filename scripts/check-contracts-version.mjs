@@ -9,9 +9,9 @@
  * changes to those files and then compares the staged `package.json` version
  * against HEAD's. Publishing itself can't be verified here (it needs network
  * + a write:packages token that browchar-api devs don't have — see
- * docs/security/github-packages-token.md), so the hook enforces the bump and
- * prints the publish reminder; the actual `npm publish` stays a manual step
- * until CI takes it over.
+ * docs/security/github-packages-token.md), so the hook only enforces the
+ * bump; publishing happens automatically when the bump lands on main
+ * (.github/workflows/publish-contracts.yml).
  *
  * Known limit: `git commit --amend` on a commit that already bumped compares
  * against the amended commit itself, so it asks for another bump. Bump again
@@ -59,7 +59,7 @@ const stagedVersion = readVersion(''); // ':<path>' = staged index content
 if (stagedVersion !== null && stagedVersion !== headVersion) {
   console.log(
     `[contracts-version] ${PKG_NAME} ${headVersion} -> ${stagedVersion} — ` +
-      `remember to publish after this lands: cd ${PKG_DIR} && npm publish`,
+      `CI publishes it automatically when this lands on main.`,
   );
   process.exit(0);
 }
@@ -72,6 +72,6 @@ console.error(
     `  git add ${PKG_JSON}\n\n` +
     `Consumers (browchar-fe) pin published versions — shipping changed types\n` +
     `under an already-published version would leave the registry stale or\n` +
-    `inconsistent. After the commit lands, publish: cd ${PKG_DIR} && npm publish\n`,
+    `inconsistent. CI publishes the new version when the commit lands on main.\n`,
 );
 process.exit(1);
