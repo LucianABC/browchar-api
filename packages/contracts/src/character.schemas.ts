@@ -22,6 +22,23 @@ export const createCharacterSchema = z.object({
 
 export type CreateCharacterInput = z.infer<typeof createCharacterSchema>;
 
+/**
+ * PATCH /characters/:id (DEV-67). Todos los campos son opcionales (update
+ * parcial), pero el body no puede venir vacío. `values`, cuando se envía,
+ * reemplaza el objeto completo y se revalida contra el template del Playbook
+ * en el service — acá sólo se valida su forma (objeto), igual que en create.
+ */
+export const updateCharacterSchema = z
+  .object({
+    name: z.string().trim().min(1, 'name es requerido').optional(),
+    values: z.record(z.string(), z.unknown()).optional(),
+  })
+  .refine((data) => data.name !== undefined || data.values !== undefined, {
+    message: 'Debe enviarse al menos un campo para actualizar',
+  });
+
+export type UpdateCharacterInput = z.infer<typeof updateCharacterSchema>;
+
 export const listCharactersQuerySchema = z.object({
   playbookId: z.string().trim().min(1).optional(),
   gameId: z.string().trim().min(1).optional(),

@@ -2,6 +2,7 @@ import { createZodDto } from 'nestjs-zod';
 import {
   createCharacterSchema,
   listCharactersQuerySchema,
+  updateCharacterSchema,
 } from '@tpklabs/browchar-contracts';
 
 /**
@@ -15,10 +16,12 @@ import {
 export {
   createCharacterSchema,
   listCharactersQuerySchema,
+  updateCharacterSchema,
 } from '@tpklabs/browchar-contracts';
 export type {
   CreateCharacterInput,
   ListCharactersQuery,
+  UpdateCharacterInput,
 } from '@tpklabs/browchar-contracts';
 
 /**
@@ -31,3 +34,5 @@ export class CreateCharacterDto extends createZodDto(createCharacterSchema) {}
 export class ListCharactersQueryDto extends createZodDto(
   listCharactersQuerySchema,
 ) {}
+
+export class UpdateCharacterDto extends createZodDto(updateCharacterSchema) {}
