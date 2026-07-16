@@ -30,6 +30,12 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
 
+      # Las reglas type-aware de ESLint resuelven @tpklabs/browchar-contracts
+      # contra su dist/ (main/types del paquete) — sin este build previo, todo
+      # import del paquete lintea como "type that cannot be resolved".
+      - name: Build contracts package
+        run: npm run contracts:build
+
       - name: Lint
         run: npm run lint
 
