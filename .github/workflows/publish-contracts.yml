@@ -13,17 +13,23 @@ permissions:
   contents: read
   packages: write
 
+# Publishes en serie, sin cancelar: cancelar un npm publish a mitad de camino
+# puede dejar el registry en un estado raro. cancel-in-progress queda en false.
+concurrency:
+  group: publish-contracts
+
 jobs:
   publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       # .npmrc referencia ${GITHUB_TOKEN}; con packages:write declarado arriba,
       # el token del workflow alcanza para publicar (mismo owner, sin PAT).
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
           cache: npm
@@ -47,12 +53,9 @@ jobs:
             echo "published=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Publish to GitHub Packages
-        if: steps.registry.outputs.published == 'false'
-        run: npm publish -w @tpklabs/browchar-contracts
-
       # Anti-drift (DEV-53: contracts quedó en 0.2.0 con la API pineando
-      # ^0.1.0). El pin local debe matchear la versión recién publicada.
+      # ^0.1.0). Se valida ANTES de publicar: si el pin local no matchea, el
+      # job falla sin dejar una versión publicada con drift ya consumado.
       - name: Check contracts pin in browchar-api
         if: steps.registry.outputs.published == 'false'
         run: |
@@ -61,12 +64,12 @@ jobs:
           if npx --yes semver --range "$PIN" "$VERSION" > /dev/null; then
             echo "browchar-api pinea $PIN — compatible con $VERSION."
           else
-            echo "::error::browchar-api/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión recién publicada $VERSION. Actualizá el pin para evitar drift."
+            echo "::error::browchar-api/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión a publicar $VERSION. Actualizá el pin en el mismo PR que bumpea el paquete."
             exit 1
           fi
 
-      # Best effort: GITHUB_TOKEN está scopeado a este repo, así que leer
-      # browchar-fe puede fallar — en ese caso avisa en vez de romper.
+      # Best effort, también pre-publish: GITHUB_TOKEN está scopeado a este
+      # repo, así que leer browchar-fe puede fallar — avisa en vez de romper.
       - name: Check contracts pin in browchar-fe (warning only)
         if: steps.registry.outputs.published == 'false'
         env:
@@ -81,5 +84,12 @@ jobs:
           if npx --yes semver --range "$PIN" "$VERSION" > /dev/null; then
             echo "browchar-fe pinea $PIN — compatible con $VERSION."
           else
-            echo "::warning::browchar-fe/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión recién publicada $VERSION. Abrí un PR en browchar-fe para actualizar el pin."
+            echo "::warning::browchar-fe/package.json pinea @tpklabs/browchar-contracts $PIN, que NO matchea la versión a publicar $VERSION. Abrí un PR en browchar-fe para actualizar el pin."
           fi
+
+      # npm publish corre prepublishOnly (build del paquete) por su cuenta.
+      # Cuando packages/contracts tenga tests propios (DEV-202), agregar un
+      # step "npm test -w @tpklabs/browchar-contracts" antes de publicar.
+      - name: Publish to GitHub Packages
+        if: steps.registry.outputs.published == 'false'
+        run: npm publish -w @tpklabs/browchar-contracts

@@ -2,10 +2,24 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches: [main]
+
+# Al declarar permissions se pierden los defaults: packages:read es
+# imprescindible para que npm resuelva @tpklabs/browchar-contracts.
+permissions:
+  contents: read
+  packages: read
+
+# Un push nuevo a la misma rama cancela la corrida anterior.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   ci:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       # .npmrc referencia ${GITHUB_TOKEN}: sin la variable definida, cualquier
       # comando npm falla con "Failed to replace env in config". El token del
@@ -16,15 +30,18 @@ jobs:
       # tests via jest). No se conecta a ninguna DB: alcanza un valor dummy.
       DATABASE_URL: postgresql://ci:ci@localhost:5432/ci
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
           cache: npm
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Validate Prisma schema
+        run: npx prisma validate
 
       # prisma/generated está gitignoreado; tests y build lo necesitan.
       - name: Generate Prisma client
@@ -38,6 +55,9 @@ jobs:
 
       - name: Lint
         run: npm run lint
+
+      - name: Validate seed data
+        run: npm run validate:data
 
       - name: Test
         run: npm run test
