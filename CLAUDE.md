@@ -163,7 +163,8 @@ Do not assume or introduce these patterns — they are not in the codebase:
 
 ```bash
 npm run start:dev       # dev server with watch
-npm run lint            # ESLint with auto-fix
+npm run lint            # ESLint, check only (fails on any warning — same as CI)
+npm run lint:fix        # ESLint with auto-fix
 npm run test            # unit tests
 npm run test:e2e        # e2e tests
 npx prisma generate     # regenerate Prisma client after schema changes
