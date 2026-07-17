@@ -188,7 +188,9 @@ npx tsx prisma/seed.ts  # seed the database
 de `package.json`. La corrida (y el CI) **falla** si la cobertura global baja de
 **90% statements / 80% branches / 85% functions / 90% lines**.
 
-Se mide solo la lógica de negocio unitesteada. `collectCoverageFrom` excluye
-`main.ts` (bootstrap), `*.module.ts` (wiring DI), `*.controller.ts` (capa HTTP,
-cubierta por el e2e — DEV-149), `*.types.ts` y `config/env.ts`. Al mover código
-con lógica a esas ubicaciones, sumale su `.spec.ts` antes de bajar el umbral.
+Se mide sobre la lógica de negocio (services, schemas, controllers, utils),
+cada una con su `.spec.ts`. `collectCoverageFrom` excluye solo lo que no tiene
+lógica propia: `main.ts` (bootstrap), `*.module.ts` (wiring DI), `*.types.ts` y
+`config/env.ts`. Los controllers **sí** se cuentan (tienen unit tests de
+delegación) — no dependas del e2e para cubrirlos: hoy no corre en CI. Al agregar
+un archivo con lógica, sumale su `.spec.ts` antes de tocar el umbral.

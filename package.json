@@ -87,7 +87,6 @@
       "**/*.(t|j)s",
       "!main.ts",
       "!**/*.module.ts",
-      "!**/*.controller.ts",
       "!**/*.types.ts",
       "!config/env.ts"
     ],
