@@ -6,4 +6,8 @@ export * from './fields';
 export * from './character.schemas';
 export * from './playbook.schemas';
 export * from './template-schema';
+export * from './template.schemas';
 export * from './validation';
+// Fixtures del contrato (DEV-202): los consumen los contract tests de ambos
+// repos. Viven en el paquete para que API y FE prueben contra los MISMOS casos.
+export * from './fixtures';
