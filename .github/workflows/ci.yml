@@ -34,7 +34,9 @@ jobs:
 
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
-          node-version: 20
+          # 22 (LTS): el e2e usa Testcontainers, cuyo undici requiere Node >=22
+          # (markAsUncloneable). Dev también corre en 22; el proyecto es "20+".
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
