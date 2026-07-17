@@ -194,3 +194,9 @@ lógica propia: `main.ts` (bootstrap), `*.module.ts` (wiring DI), `*.types.ts` y
 `config/env.ts`. Los controllers **sí** se cuentan (tienen unit tests de
 delegación) — no dependas del e2e para cubrirlos: hoy no corre en CI. Al agregar
 un archivo con lógica, sumale su `.spec.ts` antes de tocar el umbral.
+
+El paquete `packages/contracts` (fuente de verdad compartida) tiene su **propio**
+gate: el jest raíz no lo cubre (`rootDir: src`), así que corre aparte con
+`npm run test:cov -w @tpklabs/browchar-contracts` y su `jest.config.cjs` aplica
+90/78/88/90 sobre los schemas (excluye el barrel `index.ts` y `pagination.ts`,
+que es solo constantes + tipos). El CI lo corre en el step "Test contracts package".
