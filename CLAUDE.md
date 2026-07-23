@@ -185,20 +185,29 @@ npx tsx prisma/seed.ts  # seed the database
 ## E2E tests (DEV-149)
 
 `npm run test:e2e` corre los specs `test/*.e2e-spec.ts` contra la API **real**,
-como caja negra por HTTP. **Requiere Docker corriendo.** El script hace
-`prisma generate` + `build` **una sola vez** y después `test:e2e:run` (el jest).
-En CI el dist ya viene del step Build, así que el step e2e usa `test:e2e:run`
-directo (sin recompilar).
+como caja negra por HTTP. **Requiere Docker corriendo.** El script encadena
+`prisma generate` + `build` **una sola vez** y después `test:e2e:run` (el jest) —
+así ni una corrida local ni el job de CI recompilan dos veces.
 
 El `globalSetup` (`test/e2e/global-setup.ts`) solo hace lo que depende del
-contenedor: levanta un Postgres efímero con Testcontainers, corre
-`migrate deploy` y arranca la app con **`npm run start:prod`** (el mismo comando
-desplegable, para que su rotura rompa el e2e) como proceso aparte; el
-`globalTeardown` para server y contenedor. Se corre la app compilada en node
-—no `Test.createTestingModule` dentro de jest— a propósito: el cliente Prisma 7
-(engine WASM) no inicializa bajo ts-jest. Los specs le pegan con `supertest` y
-montan sus fixtures con `pg` directo (SQL), sin cargar Prisma en el proceso de
-test. El primer run tarda (build + pull de la imagen postgres).
+contenedor: levanta un Postgres efímero con Testcontainers (imagen **pinneada
+por digest**, no por tag — reproducible byte a byte; actualizar el digest a
+mano al subir de versión), corre `migrate deploy` y arranca la app con
+**`npm run start:prod`** (el mismo comando desplegable, para que su rotura
+rompa el e2e) como proceso aparte; el `globalTeardown` para server y
+contenedor, esperando su salida real (no solo `kill`). Se corre la app
+compilada en node —no `Test.createTestingModule` dentro de jest— a propósito:
+el cliente Prisma 7 (engine WASM) no inicializa bajo ts-jest. Los specs le
+pegan con `supertest` y montan sus fixtures con `pg` directo (SQL), sin cargar
+Prisma en el proceso de test. El primer run tarda (build + pull de la imagen
+postgres).
+
+**CI**: `e2e` es un job aparte de `checks` (lint/unit/build) — corren en
+paralelo, sin compartir build entre sí (cada uno se compila una vez, adentro
+suyo), así el e2e no demora el feedback rápido de lint/unit. Si el e2e falla,
+sube como artefacto (`e2e-artifacts`, 7 días) el JUnit (`test-results/e2e-junit.xml`)
+y los logs de server/Postgres (`test-results/e2e-*.log`) — no hace falta
+reproducir localmente para ver qué pasó.
 
 ## Coverage gate (DEV-150)
 

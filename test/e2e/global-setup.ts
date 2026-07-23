@@ -1,12 +1,19 @@
 import { execSync, type ChildProcess } from 'node:child_process';
-import { writeFileSync } from 'node:fs';
+import { createWriteStream, mkdirSync, writeFileSync } from 'node:fs';
 import net from 'node:net';
 import {
   PostgreSqlContainer,
   type StartedPostgreSqlContainer,
 } from '@testcontainers/postgresql';
 import { mainBridgeFilePath, type E2eBridge } from './bridge';
+import { POSTGRES_LOG, RESULTS_DIR, SERVER_LOG } from './artifacts';
 import { startServer, stopServer } from './server';
+
+// Imagen pinneada por digest: la misma bit-a-bit en cada corrida y en CI
+// (`postgres:16` es un tag mutable). Actualizar el digest a mano al subir de
+// versión.
+const POSTGRES_IMAGE =
+  'postgres:16@sha256:468e1f126ca5af849799cda06ac9b03d8090aae9fa5163408b3e8da44fad0702';
 
 /** Puerto libre efímero: evita colisiones con un puerto fijo o corridas paralelas. */
 async function getFreePort(): Promise<number> {
@@ -52,9 +59,16 @@ export default async function globalSetup(): Promise<void> {
   let container: StartedPostgreSqlContainer | undefined;
   let server: ChildProcess | undefined;
 
+  mkdirSync(RESULTS_DIR, { recursive: true });
+
   try {
-    container = await new PostgreSqlContainer('postgres:16').start();
+    container = await new PostgreSqlContainer(POSTGRES_IMAGE).start();
     const databaseUrl = container.getConnectionUri();
+
+    // Logs del contenedor en archivo aparte: si el e2e falla, CI los sube como
+    // artefacto para diagnosticar sin volver a reproducir.
+    const pgLogStream = createWriteStream(POSTGRES_LOG);
+    (await container.logs()).pipe(pgLogStream);
 
     execSync('npx prisma migrate deploy', {
       cwd: process.cwd(),
@@ -64,7 +78,7 @@ export default async function globalSetup(): Promise<void> {
 
     const port = await getFreePort();
     const baseUrl = `http://127.0.0.1:${port}`;
-    server = startServer(port, databaseUrl);
+    server = startServer(port, databaseUrl, SERVER_LOG);
     await waitForServer(`${baseUrl}/`);
 
     const bridge: E2eBridge = { baseUrl, databaseUrl };
