@@ -3,6 +3,10 @@ import { closeSync, openSync } from 'node:fs';
 
 const isWindows = process.platform === 'win32';
 
+/** Cuánto esperar SIGTERM antes de escalar a SIGKILL, y a SIGKILL antes de darse por vencido. */
+const GRACE_MS = 10000;
+const KILL_MS = 5000;
+
 /**
  * Arranca la app con el MISMO comando que producción (`npm run start:prod`), no
  * con un `node dist/...` a mano: así el e2e ejerce el artefacto y el comando
@@ -38,7 +42,25 @@ export function startServer(
   }
 }
 
-/** Mata el árbol del server y ESPERA su salida (no deja procesos colgados). */
+function killGroup(pid: number): void {
+  try {
+    if (isWindows) {
+      // /F ya es un kill forzado — no hay distinción SIGTERM/SIGKILL en Windows.
+      spawnSync('taskkill', ['/pid', String(pid), '/T', '/F']);
+    } else {
+      process.kill(-pid, 'SIGKILL');
+    }
+  } catch {
+    // El proceso puede haber muerto entre el check y el kill.
+  }
+}
+
+/**
+ * Mata el árbol del server y ESPERA su salida real (no deja procesos
+ * colgados). Empieza con SIGTERM; si no salió en `GRACE_MS`, escala a SIGKILL
+ * sobre el grupo entero. Si ni eso lo baja en `KILL_MS` más, rechaza — un
+ * server que sobrevive a SIGKILL no debería dejar pasar el teardown en verde.
+ */
 export function stopServer(server: ChildProcess | undefined): Promise<void> {
   if (!server || server.pid === undefined) return Promise.resolve();
   if (server.exitCode !== null || server.signalCode !== null) {
@@ -46,20 +68,38 @@ export function stopServer(server: ChildProcess | undefined): Promise<void> {
   }
   const pid = server.pid;
 
-  return new Promise((resolve) => {
-    server.once('exit', () => resolve());
-    // Red de seguridad: si el proceso no muere, no colgar el teardown.
-    const timeout = setTimeout(() => resolve(), 10000);
-    timeout.unref();
+  return new Promise((resolve, reject) => {
+    let exited = false;
+    server.once('exit', () => {
+      exited = true;
+      resolve();
+    });
 
     try {
-      if (process.platform === 'win32') {
+      if (isWindows) {
         spawnSync('taskkill', ['/pid', String(pid), '/T', '/F']);
       } else {
         process.kill(-pid, 'SIGTERM');
       }
     } catch {
-      server.kill('SIGKILL');
+      // El proceso puede haber muerto entre el check y el kill; el listener
+      // 'exit' (si llegó a dispararse antes) ya resolvió.
     }
+
+    const escalate = setTimeout(() => {
+      if (exited) return;
+      killGroup(pid);
+
+      const giveUp = setTimeout(() => {
+        if (exited) return;
+        reject(
+          new Error(
+            `El server e2e (pid ${pid}) no terminó ni tras SIGKILL en ${GRACE_MS + KILL_MS}ms`,
+          ),
+        );
+      }, KILL_MS);
+      giveUp.unref();
+    }, GRACE_MS);
+    escalate.unref();
   });
 }
